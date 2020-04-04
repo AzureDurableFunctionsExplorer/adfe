@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import TopBar from "../Components/TopBar";
-import { withStyles, createStyles, WithStyles } from "@material-ui/core";
+import { withStyles, createStyles, WithStyles, Paper } from "@material-ui/core";
+import FunctionsList from "../../Features/FunctionsList/FunctionsList";
 
-type MainLayoutClassKeys = "root" | "body";
+type MainLayoutClassKeys = "root" | "body" | "functionsList";
 
 const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
@@ -13,12 +14,7 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
     if (topBarRef.current !== null) {
       setTopBarHeight(topBarRef.current.clientHeight);
     }
-  });
-
-  const elements: JSX.Element[] = [];
-  for (let index = 0; index < 300; index++) {
-    elements.push(<li key={index}>{"Number is " + index}</li>);
-  }
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -27,9 +23,9 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
         height: `calc(100vh - ${topBarHeight}px)`,
         marginTop: `${topBarHeight}px`
       }}>
-        <ul>
-          {elements}
-        </ul>
+        <Paper elevation={5} square className={classes.functionsList}>
+          <FunctionsList></FunctionsList>
+        </Paper>
       </div>
     </div>
   )
@@ -42,8 +38,12 @@ export default withStyles(
         display: "flex"
       },
       "body": {
+        width: "100%",
+        display: "flex"
+      },
+      "functionsList": {
         overflowY: "auto",
-        width: "100%"
+        width: "25%"
       }
     })
 )(MainLayout);

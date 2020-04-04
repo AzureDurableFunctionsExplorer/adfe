@@ -6,13 +6,21 @@ import { withStyles, Theme } from '@material-ui/core';
 const styles = (theme: Theme) => ({
   '@global': {
     '::-webkit-scrollbar': {
-      width: '0.5em',
+      width: '1.2em',
     },
     '::-webkit-scrollbar-track': {
       backgroundColor: theme.palette.primary.main,
+      border: '0.5em solid white',
+      borderRadius: "1em"
     },
     '::-webkit-scrollbar-thumb': {
-      backgroundColor: theme.palette.secondary.main
+      "&:hover": {
+        backgroundColor: theme.palette.secondary.dark
+      },
+      backgroundColor: theme.palette.secondary.main,
+      border: '0.4em solid transparent',
+      borderRadius: "5em",
+      backgroundClip: "padding-box"
     }
   }
 });
