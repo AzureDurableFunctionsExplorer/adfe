@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import { Typography } from "@material-ui/core";
+import { Typography, useTheme } from "@material-ui/core";
+
+
 
 const App = () => {
+  var theme = useTheme();
+
   return (
-    <Typography variant="h1" component="h1" className="App">Empty App</Typography>
+    <Typography variant="h1" component="h1" style={{ color: theme.palette.primary.main }} className="App">Empty App</Typography>
   );
 }
 

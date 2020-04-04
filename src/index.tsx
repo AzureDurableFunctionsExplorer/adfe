@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import AdfeTheme from './Themes/MainTheme';
+import { Theme, ThemeProvider } from '@material-ui/core';
+
+const MainAdfeTheme: Theme = AdfeTheme;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={MainAdfeTheme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
