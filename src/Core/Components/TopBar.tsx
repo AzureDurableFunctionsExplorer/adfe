@@ -1,16 +1,16 @@
 import { AppBar, Typography, withStyles, createStyles, WithStyles } from "@material-ui/core"
-import React, { Props } from "react"
+import React from "react"
 
 type TopBarClassKeys = "root" | "text";
 
-const TopBar = ({ classes }: WithStyles<TopBarClassKeys>) => {
+const TopBar = React.forwardRef(({ classes }: WithStyles<TopBarClassKeys>, ref) => {
   return (
-    <AppBar className={classes.root}>
+    <AppBar className={classes.root} ref={ref}>
       <Typography className={classes.text} variant="h4">ADFE</Typography>
       <Typography className={classes.text} variant="subtitle1">Azure Durable Functions Explorer</Typography>
     </AppBar>
   )
-}
+})
 
 export default withStyles(
   () =>
