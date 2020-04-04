@@ -6,8 +6,8 @@ const palette: PaletteOptions = {
     dark: "#286C8C"
   },
   secondary: {
-    main: "#FDBC0F",
-    dark: "#FCD116"
+    main: "#FCD116",
+    dark: "#FDBC0F"
   }
 }
 
