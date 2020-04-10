@@ -1,4 +1,4 @@
-import React, { Props, ClassAttributes, useRef, useEffect } from "react";
+import React from "react";
 import { FunctionAppModel } from "../../Models";
 import { ReactComponent as AzureFunctionIcon } from "../../assets/images/azure-functions-icon.svg";
 import { Typography, withStyles, createStyles, WithStyles } from "@material-ui/core";
