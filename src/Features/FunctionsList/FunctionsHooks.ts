@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { FunctionsService } from './FunctionsService';
+import { FunctionAppDto } from '../../Dtos';
+import { FunctionAppModel } from '../../Models';
 
-export function useFunctions(): string[] | null {
+export function useFunctions(): FunctionAppModel[] | null {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [functionsList, setFunctionsList] = useState(new Array<string>());
+  const [functionsList, setFunctionsList] = useState(new Array<FunctionAppModel>());
 
   useEffect(() => {
 
-    const handleFunctionsList = (functions: string[]) => {
+    const handleFunctionsList = (functions: FunctionAppDto[]) => {
       setIsLoaded(true);
       setFunctionsList(functions)
     };

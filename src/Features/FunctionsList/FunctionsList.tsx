@@ -1,7 +1,8 @@
 import React from "react";
 import { useFunctions } from "./FunctionsHooks";
 import { Skeleton } from '@material-ui/lab';
-
+import { FunctionAppModel } from "../../Models";
+import FunctionApp from "./FunctionApp";
 
 const FunctionsListLoader = ({ repeat }: { repeat?: number }) => {
   const dummyArray = Array.from(new Array(repeat || 1).keys());
@@ -21,12 +22,12 @@ const FunctionsListLoader = ({ repeat }: { repeat?: number }) => {
 }
 
 const FunctionsList = () => {
-  const functions: string[] | null = useFunctions();
+  const functions: FunctionAppModel[] | null = useFunctions();
 
   return (
     functions === null
       ? <FunctionsListLoader repeat={6}></FunctionsListLoader>
-      : <ul> {functions.map(func => <li>{func}</li>)} </ul>
+      : <div> {functions.map(func => <FunctionApp key={func.id} />)}</div>
   )
 };
 
