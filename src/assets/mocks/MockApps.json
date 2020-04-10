@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "microsoft-learn-accessor"
+  },
+  {
+    "id": "2",
+    "name": "iot-hub-validations"
+  },
+  {
+    "id": "3",
+    "name": "iot-edge-communicator"
+  },
+  {
+    "id": "4",
+    "name": "cognitive-services"
+  },
+  {
+    "id": "5",
+    "name": "telemetry-manager"
+  },
+  {
+    "id": "6",
+    "name": "publisher"
+  },
+  {
+    "id": "7",
+    "name": "smart-home-manager"
+  },
+  {
+    "id": "8",
+    "name": "device-manager"
+  },
+  {
+    "id": "9",
+    "name": "sensor-validator"
+  }
+]

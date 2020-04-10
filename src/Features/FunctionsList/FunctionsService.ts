@@ -1,22 +1,17 @@
-import { Observable, from } from 'rxjs';
+import { from } from 'rxjs';
 import { delay } from 'rxjs/operators'
 import { FunctionAppDto } from '../../Dtos';
+import MockApps from '../../assets/mocks/MockApps.json';
 
 export class FunctionsService {
 
-  public static getAllFunctions(): Observable<FunctionAppDto[]> {
-    const elements: FunctionAppDto[][] = [];
-    elements.push([]);
-    for (let index = 0; index < 300; index++) {
-      elements[0].push({
-        id: `${index}`,
-        name: `Cool Function ${index}`
-      });
-    }
+  public static getAllFunctions(): Promise<FunctionAppDto[]> {
+    const functionApps: FunctionAppDto[] = MockApps.map(mockApp => mockApp as FunctionAppDto);
 
-    return from(elements)
+    return from([functionApps])
       .pipe(
         delay(2000)
-      );
+      )
+      .toPromise();
   }
 }

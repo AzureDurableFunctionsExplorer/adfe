@@ -14,10 +14,7 @@ export function useFunctions(): FunctionAppModel[] | null {
       setFunctionsList(functions)
     };
 
-    const subscription = FunctionsService.getAllFunctions().subscribe(handleFunctionsList);
-    return () => {
-      subscription.unsubscribe();
-    }
+    FunctionsService.getAllFunctions().then(handleFunctionsList);
   }, []);
 
   return isLoaded ? functionsList : null;
