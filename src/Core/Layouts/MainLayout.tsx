@@ -23,7 +23,7 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
         height: `calc(100vh - ${topBarHeight}px)`,
         marginTop: `${topBarHeight}px`
       }}>
-        <Paper elevation={5} square className={classes.functionsList}>
+        <Paper elevation={5} square className={classes.functionsList} >
           <FunctionsList></FunctionsList>
         </Paper>
       </div>
@@ -43,7 +43,8 @@ export default withStyles(
       },
       "functionsList": {
         overflowY: "auto",
-        width: "25%"
+        width: "20%",
+        paddingTop: "10px"
       }
     })
 )(MainLayout);

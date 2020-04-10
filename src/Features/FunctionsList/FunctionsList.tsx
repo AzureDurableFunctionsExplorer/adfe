@@ -11,9 +11,9 @@ const FunctionsListLoader = ({ repeat }: { repeat?: number }) => {
     <>
       {
         dummyArray.map(i =>
-          <div style={{ display: "flex", margin: "10px" }} key={i}>
-            <Skeleton variant="circle" width={50} height={50} style={{ margin: "5px" }} />
-            <Skeleton variant="text" height={50} style={{ flexGrow: 1, margin: "5px" }} />
+          <div style={{ display: "flex", padding: "0 10px", alignItems: "center" }} key={i}>
+            <Skeleton variant="circle" width={30} height={30} />
+            <Skeleton variant="text" height={30} style={{ flexGrow: 1, margin: "5px" }} />
           </div>
         )
       }
@@ -27,7 +27,7 @@ const FunctionsList = () => {
   return (
     functions === null
       ? <FunctionsListLoader repeat={6}></FunctionsListLoader>
-      : <div> {functions.map(func => <FunctionApp key={func.id} />)}</div>
+      : <div> {functions.map(func => <FunctionApp key={func.id} functionApp={func} />)}</div>
   )
 };
 

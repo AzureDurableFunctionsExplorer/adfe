@@ -10,13 +10,13 @@ export class FunctionsService {
     for (let index = 0; index < 300; index++) {
       elements[0].push({
         id: `${index}`,
-        name: `Cool Function ${index}.`
+        name: `Cool Function ${index}`
       });
     }
 
     return from(elements)
       .pipe(
-        delay(5000)
+        delay(2000)
       );
   }
 }
