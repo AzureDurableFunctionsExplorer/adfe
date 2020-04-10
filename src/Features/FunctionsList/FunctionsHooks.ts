@@ -18,7 +18,7 @@ export function useFunctions(): FunctionAppModel[] | null {
     return () => {
       subscription.unsubscribe();
     }
-  });
+  }, []);
 
   return isLoaded ? functionsList : null;
 }
