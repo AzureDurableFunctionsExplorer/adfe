@@ -1,23 +1,14 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import './App.css';
 import MainLayout from './Core/Layouts/MainLayout';
 import { withStyles, Theme } from '@material-ui/core';
 import { RootStore } from './Stores/RootStore';
-import { useLocalStore } from "mobx-react-lite";
+import { StoreProvider } from './Stores/Core';
 
-const StoreContext = createContext<RootStore | null>(null);
-const rootStore = new RootStore()
-
-const StoreProvider: React.FC = ({ children }) => {
-  const store = useLocalStore(() => ({ ...rootStore }));
-
-  return (
-    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
-  )
-}
+const rootStore: RootStore = new RootStore();
 
 const App = () => (
-  <StoreProvider>
+  <StoreProvider rootStore={rootStore}>
     <MainLayout></MainLayout>
   </StoreProvider>
 );
