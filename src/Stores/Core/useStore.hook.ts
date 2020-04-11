@@ -4,10 +4,10 @@ import { StoreContext, ChildStore } from ".";
 
 export const useRootStore = (): RootStore => {
   const rootStore: RootStore | null = useContext(StoreContext);
-  if (rootStore instanceof RootStore) {
-    return rootStore;
-  } else {
+  if (rootStore === null) {
     throw new Error("StoreContext wasn't properly initialized.")
+  } else {
+    return rootStore;
   }
 }
 

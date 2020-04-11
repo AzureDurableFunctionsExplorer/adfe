@@ -1,8 +1,8 @@
 import React from "react";
-import { useFunctions } from "./FunctionsHooks";
 import { Skeleton } from '@material-ui/lab';
-import { FunctionAppModel } from "../../Models";
 import FunctionApp from "./FunctionApp";
+import { useStore } from "../../Stores/Core";
+import { useObserver } from "mobx-react-lite";
 
 const FunctionsListLoader = ({ repeat }: { repeat?: number }) => {
   const dummyArray = Array.from(new Array(repeat || 1).keys());
@@ -22,13 +22,13 @@ const FunctionsListLoader = ({ repeat }: { repeat?: number }) => {
 }
 
 const FunctionsList = () => {
-  const functions: FunctionAppModel[] | null = useFunctions();
+  const functionsStore = useStore("functionApps");
 
-  return (
-    functions === null
+  return useObserver(() => (
+    functionsStore.isLoading
       ? <FunctionsListLoader repeat={6}></FunctionsListLoader>
-      : <div> {functions.map(func => <FunctionApp key={func.id} functionApp={func} />)}</div>
-  )
+      : <div> {functionsStore.functionApps.map(func => <FunctionApp key={func.id} functionApp={func} />)}</div>
+  ))
 };
 
 export default FunctionsList;
