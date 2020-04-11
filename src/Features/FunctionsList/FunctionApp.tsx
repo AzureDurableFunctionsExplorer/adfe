@@ -4,16 +4,17 @@ import { ReactComponent as AzureFunctionIcon } from "../../assets/images/azure-f
 import { Typography, withStyles, createStyles, WithStyles } from "@material-ui/core";
 
 interface FunctionAppProps {
-  functionApp: FunctionAppModel
+  functionApp: FunctionAppModel,
+  functionSelected: (functionApp: FunctionAppModel) => void;
 }
 
 type FunctionAppClassKeys = 'root' | 'icon' | 'title';
 
-const FunctionApp = (props: FunctionAppProps & WithStyles<FunctionAppClassKeys>) => {
+const FunctionApp = ({ functionApp, functionSelected, classes }: FunctionAppProps & WithStyles<FunctionAppClassKeys>) => {
   return (
-    <div className={props.classes.root}>
-      <AzureFunctionIcon className={props.classes.icon} />
-      <Typography className={props.classes.title} variant="body1">{props.functionApp?.name}</Typography>
+    <div className={classes.root} onClick={(e) => functionSelected(functionApp)}>
+      <AzureFunctionIcon className={classes.icon} />
+      <Typography className={classes.title} variant="body1">{functionApp?.name}</Typography>
     </div>
   );
 }
