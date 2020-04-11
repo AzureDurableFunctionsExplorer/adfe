@@ -10,7 +10,7 @@ export class FunctionsService {
 
     return from([functionApps])
       .pipe(
-        delay(3000)
+        delay(1000)
       )
       .toPromise();
   }

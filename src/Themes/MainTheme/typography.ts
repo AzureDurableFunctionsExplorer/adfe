@@ -19,6 +19,10 @@ const typography: (palette: Palette) => TypographyOptions = palette => {
       color: palette.secondary.main,
       fontWeight: "bold"
     },
+    h5: {
+      color: palette.primary.dark,
+      fontWeight: "bold"
+    },
     subtitle1: {
       color: palette.secondary.dark,
       fontWeight: "bold"
