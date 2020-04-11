@@ -5,16 +5,17 @@ import { Typography, withStyles, createStyles, WithStyles } from "@material-ui/c
 
 interface FunctionAppProps {
   functionApp: FunctionAppModel,
+  isSelected: boolean,
   functionSelected: (functionApp: FunctionAppModel) => void;
 }
 
-type FunctionAppClassKeys = 'root' | 'icon' | 'title';
+type FunctionAppClassKeys = 'root' | 'icon' | 'title' | 'selected';
 
-const FunctionApp = ({ functionApp, functionSelected, classes }: FunctionAppProps & WithStyles<FunctionAppClassKeys>) => {
+const FunctionApp = ({ functionApp, isSelected, functionSelected, classes }: FunctionAppProps & WithStyles<FunctionAppClassKeys>) => {
   return (
-    <div className={classes.root} onClick={(e) => functionSelected(functionApp)}>
+    <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} onClick={(e) => functionSelected(functionApp)}>
       <AzureFunctionIcon className={classes.icon} />
-      <Typography className={classes.title} variant="body1">{functionApp?.name}</Typography>
+      <Typography className={`${classes.title} ${isSelected ? classes.selected : ""}`} variant="body1">{functionApp?.name}</Typography>
     </div>
   );
 }
@@ -28,20 +29,27 @@ export default withStyles(theme =>
       flexDirection: "row",
       alignItems: "center",
       cursor: "pointer",
+      "&$selected": {
+        backgroundColor: theme.palette.primary.dark
+      },
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,
       },
       "&:hover $title": {
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.dark
       }
     },
+    "selected": {},
     "icon": {
       height: "calc(100% - 10px)"
     },
     "title": {
       color: theme.palette.primary.main,
       fontWeight: "bold",
-      margin: "5px"
+      margin: "5px",
+      "&$selected": {
+        color: theme.palette.secondary.main
+      }
     }
   })
 )(FunctionApp);

@@ -28,7 +28,11 @@ const FunctionsList = () => {
     functionsStore.isLoading
       ? <FunctionsListLoader repeat={6}></FunctionsListLoader>
       : <div> {functionsStore.functionApps.map(func =>
-        <FunctionApp key={func.id} functionApp={func} functionSelected={(functionApp) => { functionsStore.selectFunctionApp(functionApp) }} />
+        <FunctionApp
+          key={func.id}
+          functionApp={func}
+          isSelected={func.id === functionsStore.selectedFunctionApp?.id}
+          functionSelected={(functionApp) => { functionsStore.selectFunctionApp(functionApp) }} />
       )}</div>
   ))
 };
