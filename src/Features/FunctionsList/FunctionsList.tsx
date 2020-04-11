@@ -26,13 +26,13 @@ const FunctionsList = () => {
 
   return useObserver(() => (
     functionsStore.isLoading
-      ? <FunctionsListLoader repeat={6}></FunctionsListLoader>
+      ? <FunctionsListLoader repeat={6} />
       : <div> {functionsStore.functionApps.map(func =>
         <FunctionApp
           key={func.id}
           functionApp={func}
           isSelected={func.id === functionsStore.selectedFunctionApp?.id}
-          functionSelected={(functionApp) => { functionsStore.selectFunctionApp(functionApp) }} />
+          functionSelected={(functionApp) => { functionsStore.selectFunctionApp(functionApp.id) }} />
       )}</div>
   ))
 };

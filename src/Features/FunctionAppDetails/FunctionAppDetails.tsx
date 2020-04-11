@@ -3,14 +3,18 @@ import { useStore } from "../../Stores/Core";
 import { FunctionAppsStore } from '../../Stores/FunctionAppsStore';
 import { useObserver } from 'mobx-react-lite';
 import FunctionAppDetailsHeader from './FunctionAppDetailsHeader';
+import FunctionAppExecutionsList from './FunctionAppExecutionsList';
 
 const FunctionAppDetails = () => {
   const functionAppsStore: FunctionAppsStore = useStore("functionApps");
 
   return useObserver(() => (
-    functionAppsStore.selectedFunctionApp !== null
-      ? <FunctionAppDetailsHeader functionName={functionAppsStore.selectedFunctionApp.name} />
-      : null
+    <div>
+      <FunctionAppDetailsHeader functionName={functionAppsStore.selectedFunctionApp?.name} />
+      <div style={{ marginTop: "25px" }}>
+        <FunctionAppExecutionsList />
+      </div>
+    </div>
   ))
 }
 

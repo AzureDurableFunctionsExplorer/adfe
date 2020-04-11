@@ -1,13 +1,18 @@
 import { ChildStore } from "./Core/ChildStore";
 import { FunctionAppModel } from "../Models";
 import { FunctionsService } from "../Features/FunctionsList/FunctionsService";
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 
 export class FunctionAppsStore extends ChildStore {
 
   @observable isLoading: boolean = false;
   @observable functionApps: FunctionAppModel[] = [];
-  @observable selectedFunctionApp: FunctionAppModel | null = null;
+  @observable selectedFunctionAppId: string = "";
+
+  @computed
+  get selectedFunctionApp(): FunctionAppModel {
+    return this.functionApps.find(func => func.id === this.selectedFunctionAppId)!;
+  }
 
   async initialize() {
     this.isLoading = true;
@@ -16,7 +21,7 @@ export class FunctionAppsStore extends ChildStore {
   }
 
   @action
-  selectFunctionApp(functionApp: FunctionAppModel) {
-    this.selectedFunctionApp = functionApp;
+  selectFunctionApp(functionAppId: string) {
+    this.selectedFunctionAppId = functionAppId;
   }
 }

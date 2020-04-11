@@ -1,9 +1,11 @@
 import { ChildStore } from "./Core/ChildStore";
 import { FunctionAppsStore } from "./FunctionAppsStore";
+import { FunctionExecutionsStore } from "./FunctionExecutionsStore";
 
 export class RootStore {
 
   functionApps: FunctionAppsStore = new FunctionAppsStore();
+  executions: FunctionExecutionsStore = new FunctionExecutionsStore();
 
   constructor() {
     const childStores: ChildStore[] = Object.keys(this)

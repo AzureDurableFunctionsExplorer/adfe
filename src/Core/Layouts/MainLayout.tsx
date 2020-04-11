@@ -31,7 +31,7 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
         <Paper elevation={5} square className={classes.functionsList} >
           <FunctionsList></FunctionsList>
         </Paper>
-        <Slide in={functionAppsStore.selectedFunctionApp !== null} direction="right">
+        <Slide in={functionAppsStore.selectedFunctionAppId !== ""} direction="right">
           <Paper elevation={5} square className={classes.functionDetails}>
             <FunctionAppDetails></FunctionAppDetails>
           </Paper>
