@@ -12,13 +12,13 @@ const FunctionAppExecutionsLoader = ({ repeat }: { repeat?: number }) => {
     <>
       {
         dummyArray.map(i =>
-          <div style={{ display: "flex", margin: "5px 0", padding: "0 15px", alignItems: "center" }} key={i}>
+          <div style={{ display: "flex", margin: "5px 0", padding: "0 15px", alignItems: "center", maxHeight: "45px" }} key={i}>
             <Skeleton variant="circle" width={20} height={20} />
             <div style={{ flexGrow: 1, margin: "0 15px", display: "flex", flexDirection: "column" }}>
-              <Skeleton variant="text" height={30} />
-              <Skeleton variant="text" height={16} width="60%" />
+              <Skeleton variant="text" height={24} />
+              <Skeleton variant="text" height={17} width="50%" />
             </div>
-            <Skeleton variant="circle" width={15} height={15} />
+            <Skeleton variant="circle" width={18} height={18} />
           </div>
         )
       }
@@ -36,7 +36,7 @@ const FunctionAppExecutionsList = () => {
       <div>
         {
           executionsStore.executions.map(
-            exec => <FunctionAppExecution execution={exec} />
+            execution => <FunctionAppExecution execution={execution} key={execution.id} />
           )
         }
       </div>

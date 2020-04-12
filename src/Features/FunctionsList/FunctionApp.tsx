@@ -44,8 +44,6 @@ export default withStyles(theme =>
       height: "calc(100% - 10px)"
     },
     "title": {
-      color: theme.palette.primary.main,
-      fontWeight: "bold",
       margin: "5px",
       "&$selected": {
         color: theme.palette.secondary.main

@@ -34,6 +34,13 @@ const typography: (palette: Palette) => TypographyOptions = palette => {
     caption: {
       color: palette.secondary.main,
       fontWeight: 'bolder'
+    },
+    body1: {
+      color: palette.primary.main,
+      fontWeight: "bold"
+    },
+    body2: {
+      fontSize: "12px"
     }
   }
 }
