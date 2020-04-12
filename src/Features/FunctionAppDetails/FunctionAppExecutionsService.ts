@@ -5,7 +5,10 @@ import { FunctionExecutionDto } from "../../Dtos/FunctionExecution.dto";
 
 export class FunctionAppExecutionService {
   public static getFunctionAppExecutions(functionAppId: string): Promise<FunctionExecutionDto[]> {
-    const executions = MockOrchestrators.map(mockItem => mockItem as unknown as FunctionExecutionDto);
+    const executions = MockOrchestrators.map(({ endTime, ...rest }) => ({
+      ...rest,
+      endTime: endTime ? Date.parse(endTime) : undefined
+    }) as unknown as FunctionExecutionDto);
 
     return from([executions])
       .pipe(

@@ -1,6 +1,7 @@
 import React from 'react'
 import { withStyles, createStyles, WithStyles, Typography } from '@material-ui/core';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
+import CheckIcon from '@material-ui/icons/Check';
 import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
 
 interface FunctionAppExecutionProps {
@@ -9,18 +10,20 @@ interface FunctionAppExecutionProps {
 
 type FunctionAppExecutionClasses = 'root' | 'mainArea' | 'indicator' | 'title' | 'startTime' | 'status' | 'inProgress';
 
-const FunctionAppExecution = ({ execution, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => {
-  return (
-    <div className={classes.root}>
-      <div className={classes.indicator} />
-      <div className={classes.mainArea}>
-        <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
-        <Typography variant="body2" className={classes.startTime} >{execution.startTime}</Typography>
-      </div>
-      <AutorenewIcon className={`${classes.status} ${classes.inProgress}`} color="primary" />
+const FunctionAppExecution = ({ execution, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => (
+  <div className={classes.root}>
+    <div className={classes.indicator} />
+    <div className={classes.mainArea}>
+      <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
+      <Typography variant="body2" className={classes.startTime} >{execution.startTime}</Typography>
     </div>
-  )
-}
+    {
+      execution.isRunning
+        ? <CheckIcon className={classes.status} />
+        : <AutorenewIcon className={`${classes.status} ${classes.inProgress}`} />
+    }
+  </div>
+)
 
 export default withStyles(
   theme => createStyles({
@@ -28,7 +31,18 @@ export default withStyles(
       display: "flex",
       alignItems: "center",
       margin: "5px 0",
-      padding: "2px 15px"
+      padding: "2px 15px",
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.secondary.dark,
+        "& $title": {
+          color: theme.palette.secondary.dark
+        },
+        "& $indicator": {
+          backgroundColor: theme.palette.secondary.dark
+        }
+      }
     },
     mainArea: {
       flexGrow: 1,

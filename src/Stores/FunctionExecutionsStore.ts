@@ -13,7 +13,15 @@ export class FunctionExecutionsStore extends ChildStore {
       "selectedFunctionAppId",
       async change => {
         this.isLoading = true;
-        this.executions = await FunctionAppExecutionService.getFunctionAppExecutions(change.newValue);
+        const executionDtos = await FunctionAppExecutionService.getFunctionAppExecutions(change.newValue);
+        this.executions = executionDtos.map(({ endTime, ...rest }) => {
+          console.log("Item: ", rest, endTime);
+          return {
+            ...rest,
+            isRunning: !endTime
+          }
+        })
+        console.log(this.executions);
         this.isLoading = false;
       });
   }
