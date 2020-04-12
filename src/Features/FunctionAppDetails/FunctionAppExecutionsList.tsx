@@ -3,6 +3,7 @@ import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
 import { Skeleton } from '@material-ui/lab';
 import FunctionAppExecution from './FunctionAppExeuction';
+import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
 
 const FunctionAppExecutionsLoader = ({ repeat }: { repeat?: number }) => {
 
@@ -36,7 +37,12 @@ const FunctionAppExecutionsList = () => {
       <div>
         {
           executionsStore.executions.map(
-            execution => <FunctionAppExecution execution={execution} key={execution.id} />
+            execution =>
+              <FunctionAppExecution
+                key={execution.id}
+                execution={execution}
+                isSelected={execution.id === executionsStore.selectedExecutionId}
+                executionSelected={(selectedExecution: FunctionExecutionModel) => executionsStore.selectExecution(selectedExecution.id)} />
           )
         }
       </div>

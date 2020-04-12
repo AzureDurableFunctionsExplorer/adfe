@@ -1,11 +1,12 @@
 import { ChildStore } from "./Core";
-import { observe, observable } from "mobx";
+import { observe, observable, action } from "mobx";
 import { FunctionAppExecutionService } from "../Features/FunctionAppDetails/FunctionAppExecutionsService";
 import { FunctionExecutionModel } from "../Models/FunctionExecution.model";
 
 export class FunctionExecutionsStore extends ChildStore {
   @observable isLoading: boolean = false;
   @observable executions: FunctionExecutionModel[] = [];
+  @observable selectedExecutionId: string = "";
 
   initialize() {
     observe(
@@ -24,5 +25,10 @@ export class FunctionExecutionsStore extends ChildStore {
         console.log(this.executions);
         this.isLoading = false;
       });
+  }
+
+  @action
+  selectExecution(executionId: string) {
+    this.selectedExecutionId = executionId;
   }
 }

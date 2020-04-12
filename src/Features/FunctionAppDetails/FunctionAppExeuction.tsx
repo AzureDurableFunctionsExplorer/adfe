@@ -5,13 +5,15 @@ import CheckIcon from '@material-ui/icons/Check';
 import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
 
 interface FunctionAppExecutionProps {
-  execution: FunctionExecutionModel
+  execution: FunctionExecutionModel,
+  isSelected: boolean,
+  executionSelected: (execution: FunctionExecutionModel) => void
 }
 
-type FunctionAppExecutionClasses = 'root' | 'mainArea' | 'indicator' | 'title' | 'startTime' | 'status' | 'inProgress';
+type FunctionAppExecutionClasses = 'root' | 'selected' | 'mainArea' | 'indicator' | 'title' | 'startTime' | 'status' | 'inProgress';
 
-const FunctionAppExecution = ({ execution, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => (
-  <div className={classes.root}>
+const FunctionAppExecution = ({ execution, isSelected, executionSelected, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => (
+  <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} onClick={(e) => executionSelected(execution)}>
     <div className={classes.indicator} />
     <div className={classes.mainArea}>
       <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
@@ -30,7 +32,6 @@ export default withStyles(
     root: {
       display: "flex",
       alignItems: "center",
-      margin: "5px 0",
       padding: "2px 15px",
       cursor: "pointer",
       "&:hover": {
@@ -42,8 +43,19 @@ export default withStyles(
         "& $indicator": {
           backgroundColor: theme.palette.secondary.dark
         }
+      },
+      "&$selected": {
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.secondary.main,
+        "& $title": {
+          color: theme.palette.secondary.main
+        },
+        "& $indicator": {
+          backgroundColor: theme.palette.secondary.main
+        }
       }
     },
+    selected: {},
     mainArea: {
       flexGrow: 1,
       margin: "0 15px",
