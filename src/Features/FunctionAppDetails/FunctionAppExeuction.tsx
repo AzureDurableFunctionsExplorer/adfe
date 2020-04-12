@@ -36,22 +36,34 @@ export default withStyles(
       cursor: "pointer",
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,
-        color: theme.palette.secondary.dark,
-        "& $title": {
-          color: theme.palette.secondary.dark
-        },
-        "& $indicator": {
-          backgroundColor: theme.palette.secondary.dark
-        }
-      },
-      "&$selected": {
-        backgroundColor: theme.palette.primary.dark,
         color: theme.palette.secondary.main,
         "& $title": {
           color: theme.palette.secondary.main
         },
+        "& $startTime": {
+          color: theme.palette.secondary.main
+        },
         "& $indicator": {
           backgroundColor: theme.palette.secondary.main
+        },
+        "& $status": {
+          color: theme.palette.secondary.main
+        }
+      },
+      "&$selected": {
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.secondary.dark,
+        "& $title": {
+          color: theme.palette.secondary.dark
+        },
+        "& $startTime": {
+          color: theme.palette.secondary.dark
+        },
+        "& $indicator": {
+          backgroundColor: theme.palette.secondary.dark
+        },
+        "& $status": {
+          color: theme.palette.secondary.dark
         }
       }
     },

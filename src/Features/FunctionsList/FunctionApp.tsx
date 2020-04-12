@@ -15,7 +15,7 @@ const FunctionApp = ({ functionApp, isSelected, functionSelected, classes }: Fun
   return (
     <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} onClick={(e) => functionSelected(functionApp)}>
       <AzureFunctionIcon className={classes.icon} />
-      <Typography className={`${classes.title} ${isSelected ? classes.selected : ""}`} variant="body1">{functionApp?.name}</Typography>
+      <Typography className={classes.title} variant="body1">{functionApp?.name}</Typography>
     </div>
   );
 }
@@ -29,14 +29,17 @@ export default withStyles(theme =>
       flexDirection: "row",
       alignItems: "center",
       cursor: "pointer",
-      "&$selected": {
-        backgroundColor: theme.palette.primary.dark
-      },
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,
+        "& $title": {
+          color: theme.palette.secondary.main
+        }
       },
-      "&:hover $title": {
-        color: theme.palette.secondary.dark
+      "&$selected": {
+        backgroundColor: theme.palette.primary.dark,
+        "& $title": {
+          color: theme.palette.secondary.dark
+        }
       }
     },
     "selected": {},
@@ -44,10 +47,7 @@ export default withStyles(theme =>
       height: "calc(100% - 10px)"
     },
     "title": {
-      margin: "5px",
-      "&$selected": {
-        color: theme.palette.secondary.main
-      }
+      margin: "5px"
     }
   })
 )(FunctionApp);
