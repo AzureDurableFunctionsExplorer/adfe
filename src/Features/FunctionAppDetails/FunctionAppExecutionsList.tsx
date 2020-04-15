@@ -13,7 +13,7 @@ const FunctionAppExecutionsLoader = ({ repeat }: { repeat?: number }) => {
     <>
       {
         dummyArray.map(i =>
-          <div style={{ display: "flex", margin: "5px 0", padding: "0 15px", alignItems: "center", maxHeight: "45px" }} key={i}>
+          <div style={{ display: "flex", margin: "5px 0", padding: "5px 15px", alignItems: "center", maxHeight: "45px" }} key={i}>
             <Skeleton variant="circle" width={20} height={20} />
             <div style={{ flexGrow: 1, margin: "0 15px", display: "flex", flexDirection: "column" }}>
               <Skeleton variant="text" height={24} />

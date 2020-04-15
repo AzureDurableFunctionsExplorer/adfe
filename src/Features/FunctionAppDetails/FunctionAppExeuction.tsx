@@ -32,7 +32,7 @@ export default withStyles(
     root: {
       display: "flex",
       alignItems: "center",
-      padding: "2px 15px",
+      padding: "7px 15px",
       cursor: "pointer",
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,
