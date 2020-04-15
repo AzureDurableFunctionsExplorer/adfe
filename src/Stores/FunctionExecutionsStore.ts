@@ -16,13 +16,11 @@ export class FunctionExecutionsStore extends ChildStore {
         this.isLoading = true;
         const executionDtos = await FunctionAppExecutionService.getFunctionAppExecutions(change.newValue);
         this.executions = executionDtos.map(({ endTime, ...rest }) => {
-          console.log("Item: ", rest, endTime);
           return {
             ...rest,
             isRunning: !endTime
           }
         })
-        console.log(this.executions);
         this.isLoading = false;
       });
   }
