@@ -3,7 +3,7 @@ export interface ExecutionPartsDto {
   title: string,
   input: any,
   output: any,
-  startTime: Date,
+  startTime?: Date,
   endTime?: Date,
   children: ExecutionPartsDto[]
 }
