@@ -2,18 +2,17 @@
   {
     "id": "1",
     "functionName": "RegisterUser",
-    "startTime": "11 Apr 2020 13:41:00 GMT",
-    "endTime": "11 Apr 2020 13:41:50 GMT"
+    "startTime": "11 Apr 2020 13:41:00 GMT"
   },
   {
     "id": "2",
     "functionName": "RegisterUser",
-    "startTime": "11 Apr 2020 13:34:26 GMT",
-    "endTime": "11 Apr 2020 13:35:32 GMT"
+    "startTime": "11 Apr 2020 13:34:26 GMT"
   },
   {
     "id": "3",
     "functionName": "Enable2FA",
-    "startTime": "11 Apr 2020 13:02:55 GMT"
+    "startTime": "11 Apr 2020 13:02:55 GMT",
+    "endTime": "11 Apr 2020 13:03:05 GMT"
   }
 ]

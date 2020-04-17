@@ -14,8 +14,8 @@ type ExecutionStatusIconClasses = "icon" | "selected" | "highlighted" | "inProgr
 const ExecutionStatusIconInner = ({ active, highlighted, selected, classes }: ExecutionStatusIconProps & WithStyles<ExecutionStatusIconClasses>) => {
   return (
     active
-      ? <CheckIcon className={`${classes.icon} ${selected ? classes.selected : ""} ${highlighted ? classes.highlighted : ""}`} />
-      : <AutorenewIcon className={`${classes.icon} ${selected ? classes.selected : ""} ${highlighted ? classes.highlighted : ""} ${classes.inProgress}`} />
+      ? <AutorenewIcon className={`${classes.icon} ${selected ? classes.selected : ""} ${highlighted ? classes.highlighted : ""} ${classes.inProgress}`} />
+      : <CheckIcon className={`${classes.icon} ${selected ? classes.selected : ""} ${highlighted ? classes.highlighted : ""}`} />
   )
 }
 
