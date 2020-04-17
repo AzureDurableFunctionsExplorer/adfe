@@ -9,7 +9,7 @@ export class ExecutionPartsService {
 
     return from([foundParts])
       .pipe(
-        delay(3000)
+        delay(2000)
       )
       .toPromise()
   }
