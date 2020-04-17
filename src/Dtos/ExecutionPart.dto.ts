@@ -1,9 +1,9 @@
-export interface ExecutionPartDto {
+export interface ExecutionPartsDto {
   id: string,
   title: string,
-  input: string,
-  output: string,
+  input: any,
+  output: any,
   startTime: Date,
   endTime?: Date,
-  children: ExecutionPartDto[]
+  children: ExecutionPartsDto[]
 }
