@@ -12,7 +12,7 @@ interface FunctionAppExecutionProps {
 
 type FunctionAppExecutionClasses = 'root' | 'selected' | 'mainArea' | 'indicator' | 'title' | 'startTime' | 'status' | 'inProgress';
 
-const FunctionAppExecution = ({ execution, isSelected, executionSelected, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => (
+const FunctionAppExecutionInner = ({ execution, isSelected, executionSelected, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => (
   <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} onClick={(e) => executionSelected(execution)}>
     <div className={classes.indicator} />
     <div className={classes.mainArea}>
@@ -27,7 +27,7 @@ const FunctionAppExecution = ({ execution, isSelected, executionSelected, classe
   </div>
 )
 
-export default withStyles(
+export const FunctionAppExecution = withStyles(
   theme => createStyles({
     root: {
       display: "flex",
@@ -99,4 +99,4 @@ export default withStyles(
       }
     }
   })
-)(FunctionAppExecution);
+)(FunctionAppExecutionInner);

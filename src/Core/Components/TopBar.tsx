@@ -3,7 +3,7 @@ import React from "react"
 
 type TopBarClassKeys = "root" | "text";
 
-const TopBar = React.forwardRef(({ classes }: WithStyles<TopBarClassKeys>, ref) => {
+const TopBarInner = React.forwardRef(({ classes }: WithStyles<TopBarClassKeys>, ref) => {
   return (
     <AppBar className={classes.root} ref={ref}>
       <Typography className={classes.text} variant="h4">ADFE</Typography>
@@ -12,7 +12,7 @@ const TopBar = React.forwardRef(({ classes }: WithStyles<TopBarClassKeys>, ref) 
   )
 })
 
-export default withStyles(
+export const TopBar = withStyles(
   () =>
     createStyles({
       "root": {
@@ -24,4 +24,4 @@ export default withStyles(
         alignSelf: "flex-end"
       }
     })
-)(TopBar);
+)(TopBarInner);

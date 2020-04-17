@@ -2,7 +2,7 @@ import React from 'react'
 import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
 import { Skeleton } from '@material-ui/lab';
-import FunctionAppExecution from './FunctionAppExeuction';
+import { FunctionAppExecution } from './FunctionAppExeuction';
 import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
 
 const FunctionAppExecutionsLoader = ({ repeat }: { repeat?: number }) => {
@@ -27,7 +27,7 @@ const FunctionAppExecutionsLoader = ({ repeat }: { repeat?: number }) => {
   )
 }
 
-const FunctionAppExecutionsList = () => {
+export const FunctionAppExecutionsList = () => {
   const executionsStore = useStore("executions");
 
   return useObserver(() => (
@@ -48,5 +48,3 @@ const FunctionAppExecutionsList = () => {
       </div>
   ))
 }
-
-export default FunctionAppExecutionsList;

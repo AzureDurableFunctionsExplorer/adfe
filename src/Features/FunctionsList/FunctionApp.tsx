@@ -11,7 +11,7 @@ interface FunctionAppProps {
 
 type FunctionAppClassKeys = 'root' | 'icon' | 'title' | 'selected';
 
-const FunctionApp = ({ functionApp, isSelected, functionSelected, classes }: FunctionAppProps & WithStyles<FunctionAppClassKeys>) => {
+const FunctionAppInner = ({ functionApp, isSelected, functionSelected, classes }: FunctionAppProps & WithStyles<FunctionAppClassKeys>) => {
   return (
     <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} onClick={(e) => functionSelected(functionApp)}>
       <AzureFunctionIcon className={classes.icon} />
@@ -20,7 +20,7 @@ const FunctionApp = ({ functionApp, isSelected, functionSelected, classes }: Fun
   );
 }
 
-export default withStyles(theme =>
+export const FunctionApp = withStyles(theme =>
   createStyles({
     "root": {
       height: "40px",
@@ -50,4 +50,4 @@ export default withStyles(theme =>
       margin: "5px"
     }
   })
-)(FunctionApp);
+)(FunctionAppInner);

@@ -11,7 +11,7 @@ interface FunctionAppDetailsHeaderProps {
 
 type FunctionAppDetailsHeaderClasses = 'container' | 'icon' | 'title';
 
-const FunctionAppDetailsHeader = ({ functionName, classes }: FunctionAppDetailsHeaderProps & WithStyles<FunctionAppDetailsHeaderClasses>) => {
+const FunctionAppDetailsHeaderInner = ({ functionName, classes }: FunctionAppDetailsHeaderProps & WithStyles<FunctionAppDetailsHeaderClasses>) => {
   const functionAppsStore = useStore("functionApps");
 
   return useObserver(() =>
@@ -26,7 +26,7 @@ const FunctionAppDetailsHeader = ({ functionName, classes }: FunctionAppDetailsH
   );
 }
 
-export default withStyles(
+export const FunctionAppDetailsHeader = withStyles(
   theme => createStyles({
     "container": {
       display: "flex",
@@ -43,4 +43,4 @@ export default withStyles(
 
     }
   })
-)(FunctionAppDetailsHeader);
+)(FunctionAppDetailsHeaderInner);

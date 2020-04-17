@@ -2,7 +2,7 @@ import React from 'react'
 import { Skeleton } from '@material-ui/lab'
 import { Typography, Container } from '@material-ui/core'
 
-const ExecutionPartsList = () => {
+export const ExecutionPartsList = () => {
   return (
     <>
       <Skeleton variant="text" />
@@ -14,5 +14,3 @@ const ExecutionPartsList = () => {
     </>
   )
 }
-
-export default ExecutionPartsList;

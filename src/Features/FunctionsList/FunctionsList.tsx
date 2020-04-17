@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from '@material-ui/lab';
-import FunctionApp from "./FunctionApp";
+import { FunctionApp } from "./FunctionApp";
 import { useStore } from "../../Stores/Core";
 import { useObserver } from "mobx-react-lite";
 
@@ -21,7 +21,7 @@ const FunctionsListLoader = ({ repeat }: { repeat?: number }) => {
   )
 }
 
-const FunctionsList = () => {
+export const FunctionsList = () => {
   const functionsStore = useStore("functionApps");
 
   return useObserver(() => (
@@ -36,5 +36,3 @@ const FunctionsList = () => {
       )}</div>
   ))
 };
-
-export default FunctionsList;

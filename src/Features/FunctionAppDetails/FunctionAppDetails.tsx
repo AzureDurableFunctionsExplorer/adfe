@@ -2,10 +2,10 @@ import React from 'react';
 import { useStore } from "../../Stores/Core";
 import { FunctionAppsStore } from '../../Stores/FunctionAppsStore';
 import { useObserver } from 'mobx-react-lite';
-import FunctionAppDetailsHeader from './FunctionAppDetailsHeader';
-import FunctionAppExecutionsList from './FunctionAppExecutionsList';
+import { FunctionAppDetailsHeader } from './FunctionAppDetailsHeader';
+import { FunctionAppExecutionsList } from './FunctionAppExecutionsList';
 
-const FunctionAppDetails = () => {
+export const FunctionAppDetails = () => {
   const functionAppsStore: FunctionAppsStore = useStore("functionApps");
 
   return useObserver(() => (
@@ -17,5 +17,3 @@ const FunctionAppDetails = () => {
     </div>
   ))
 }
-
-export default FunctionAppDetails;

@@ -1,16 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
-import TopBar from "../Components/TopBar";
+import { TopBar } from "../Components/TopBar";
 import { withStyles, createStyles, WithStyles, Paper, Slide } from "@material-ui/core";
-import FunctionsList from "../../Features/FunctionsList/FunctionsList";
-import FunctionAppDetails from "../../Features/FunctionAppDetails/FunctionAppDetails";
+import { FunctionsList } from "../../Features/FunctionsList/FunctionsList";
+import { FunctionAppDetails } from "../../Features/FunctionAppDetails/FunctionAppDetails";
 import { useStore } from "../../Stores/Core";
 import { useObserver } from "mobx-react-lite";
 import { ExecutionDetailsHeader } from "../../Features/ExecutionDetails/ExecutionDetailsHeader";
-import ExecutionPartsList from "../../Features/ExecutionDetails/ExecutionPartsList";
+import { ExecutionPartsList } from "../../Features/ExecutionDetails/ExecutionPartsList";
 
 type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails";
 
-const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
+const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
   const [topBarHeight, setTopBarHeight] = useState(0);
   const topBarRef = useRef<HTMLElement>(null);
@@ -56,7 +56,7 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
   ))
 }
 
-export default withStyles(
+export const MainLayout = withStyles(
   () =>
     createStyles({
       "root": {
@@ -97,4 +97,4 @@ export default withStyles(
         zIndex: 37
       }
     })
-)(MainLayout);
+)(MainLayoutInner);

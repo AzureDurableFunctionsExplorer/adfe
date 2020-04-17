@@ -1,7 +1,7 @@
 import { TypographyOptions } from "@material-ui/core/styles/createTypography";
 import { Palette } from "@material-ui/core/styles/createPalette";
 
-const typography: (palette: Palette) => TypographyOptions = palette => {
+export const typography: (palette: Palette) => TypographyOptions = palette => {
   return {
     h1: {
       color: palette.secondary.main,
@@ -44,5 +44,3 @@ const typography: (palette: Palette) => TypographyOptions = palette => {
     }
   }
 }
-
-export default typography;

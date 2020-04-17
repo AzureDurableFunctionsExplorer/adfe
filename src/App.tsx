@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import MainLayout from './Core/Layouts/MainLayout';
+import { MainLayout } from './Core/Layouts/MainLayout';
 import { withStyles, Theme } from '@material-ui/core';
 import { RootStore } from './Stores/RootStore';
 import { StoreProvider } from './Stores/Core';
 
 const rootStore: RootStore = new RootStore();
 
-const App = () => (
+const AppInner = () => (
   <StoreProvider rootStore={rootStore}>
     <MainLayout></MainLayout>
   </StoreProvider>
@@ -31,4 +31,4 @@ const styles = (theme: Theme) => ({
   }
 });
 
-export default withStyles(styles)(App);
+export const App = withStyles(styles)(AppInner);

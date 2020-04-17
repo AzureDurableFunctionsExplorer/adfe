@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { App } from './App';
 import * as serviceWorker from './serviceWorker';
-import AdfeTheme from './Themes/MainTheme';
+import { AdfeTheme } from './Themes/MainTheme';
 import { Theme, ThemeProvider } from '@material-ui/core';
 import 'mobx-react-lite/batchingForReactDom'
 
