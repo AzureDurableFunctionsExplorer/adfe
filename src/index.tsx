@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AdfeTheme from './Themes/MainTheme';
 import { Theme, ThemeProvider } from '@material-ui/core';
+import 'mobx-react-lite/batchingForReactDom'
 
 const MainAdfeTheme: Theme = AdfeTheme;
 
