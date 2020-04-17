@@ -28,8 +28,8 @@ const typography: (palette: Palette) => TypographyOptions = palette => {
       fontWeight: "bold"
     },
     subtitle2: {
-      color: palette.secondary.dark,
-      fontWeight: "normal"
+      color: palette.primary.dark,
+      fontWeight: "bold"
     },
     caption: {
       color: palette.secondary.main,

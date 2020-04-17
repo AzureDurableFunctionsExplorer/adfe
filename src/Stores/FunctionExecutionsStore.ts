@@ -1,5 +1,5 @@
 import { ChildStore } from "./Core";
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import { FunctionAppExecutionService } from "../Features/FunctionAppDetails/FunctionAppExecutionsService";
 import { FunctionExecutionModel } from "../Models/FunctionExecution.model";
 import { toStream } from "mobx-utils";
@@ -11,6 +11,11 @@ export class FunctionExecutionsStore extends ChildStore {
   @observable isLoading: boolean = false;
   @observable executions: FunctionExecutionModel[] = [];
   @observable selectedExecutionId: string = "";
+
+  @computed
+  get selectedExecution(): FunctionExecutionModel {
+    return this.executions.find(execution => execution.id === this.selectedExecutionId)!;
+  }
 
   initialize() {
     // The following line is broken in strict mode due to mobx-utils toStream and rxjs from combination.

@@ -5,8 +5,10 @@ import FunctionsList from "../../Features/FunctionsList/FunctionsList";
 import FunctionAppDetails from "../../Features/FunctionAppDetails/FunctionAppDetails";
 import { useStore } from "../../Stores/Core";
 import { useObserver } from "mobx-react-lite";
+import ExecutionDetailsTitle from "../../Features/ExecutionDetails/ExecutionDetailsTitle";
+import ExecutionPartsList from "../../Features/ExecutionDetails/ExecutionPartsList";
 
-type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionDetails";
+type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails";
 
 const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
@@ -20,6 +22,7 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
   }, []);
 
   const functionAppsStore = useStore("functionApps");
+  const functionExecutionsStore = useStore("executions");
 
   return useObserver(() => (
     <div className={classes.root}>
@@ -32,10 +35,22 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
           <FunctionsList></FunctionsList>
         </Paper>
         <Slide in={functionAppsStore.selectedFunctionAppId !== ""} direction="right">
-          <Paper elevation={5} square className={classes.functionDetails}>
+          <Paper elevation={5} square className={classes.functionPanel}>
             <FunctionAppDetails></FunctionAppDetails>
           </Paper>
         </Slide>
+        <div className={classes.executionPanel}>
+          <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="down">
+            <div className={classes.executionTitle}>
+              <ExecutionDetailsTitle></ExecutionDetailsTitle>
+            </div>
+          </Slide>
+          <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="right">
+            <Paper elevation={5} square className={classes.executionDetails}>
+              <ExecutionPartsList></ExecutionPartsList>
+            </Paper>
+          </Slide>
+        </div>
       </div>
     </div >
   ))
@@ -55,11 +70,31 @@ export default withStyles(
         overflowY: "auto",
         width: "20%",
         paddingTop: "10px",
-        zIndex: 5
+        zIndex: 59
       },
-      "functionDetails": {
+      "functionPanel": {
         overflowY: "auto",
         width: "20%",
+        zIndex: 49
+      },
+      "executionPanel": {
+        display: "grid",
+        gridTemplateColumns: "40% auto",
+        gridTemplateRows: "6% auto",
+        gridTemplateAreas: `
+          "title title"
+          "execution-details sub-execution-details"
+          `,
+        flexGrow: 1,
+        zIndex: 39
+      },
+      "executionTitle": {
+        gridArea: "title",
+        zIndex: 38
+      },
+      "executionDetails": {
+        gridArea: "execution-details",
+        zIndex: 37
       }
     })
 )(MainLayout);
