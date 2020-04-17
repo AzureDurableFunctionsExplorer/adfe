@@ -2,9 +2,7 @@ import { ChildStore } from "./Core";
 import { observable, action, computed } from "mobx";
 import { FunctionAppExecutionService } from "../Features/FunctionAppDetails/FunctionAppExecutionsService";
 import { FunctionExecutionModel } from "../Models/FunctionExecution.model";
-import { toStream } from "mobx-utils";
-import { from } from "rxjs";
-import { tap, switchMap, map } from "rxjs/operators";
+import { tap, switchMap, map, filter } from "rxjs/operators";
 import { FunctionExecutionDto } from "../Dtos/FunctionExecution.dto";
 import { toObservable } from "../Core/Utils/MobxUtils";
 
@@ -19,10 +17,18 @@ export class FunctionExecutionsStore extends ChildStore {
   }
 
   initialize() {
-    // The following line is broken in strict mode due to mobx-utils toStream and rxjs from combination.
-    // @ts-ignore
     toObservable(() => this.root.functionApps.selectedFunctionAppId)
       .pipe(
+        filter(functionId => !functionId)
+      )
+      .subscribe(_ => {
+        this.selectedExecutionId = "";
+        this.executions = [];
+      });
+
+    toObservable(() => this.root.functionApps.selectedFunctionAppId)
+      .pipe(
+        filter(functionId => !!functionId),
         tap(_ => this.isLoading = true),
         tap(_ => this.selectedExecutionId = ""),
         switchMap((functionId: string) => FunctionAppExecutionService.getFunctionAppExecutions(functionId)),
