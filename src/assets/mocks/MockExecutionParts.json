@@ -1,0 +1,289 @@
+[
+  {
+    "id": "1",
+    "title": "Register User Orchestrator",
+    "input": {
+      "userName": "Moaid",
+      "password": "Hathot",
+      "isTodayBirthday": true
+    },
+    "output": {
+      "message": "Happy Birthday",
+      "fullName": "Moaid Hathot"
+    },
+    "startTime": "11 Apr 2020 13:41:00 GMT",
+    "endTime": "",
+    "children": [
+      {
+        "id": "1_1",
+        "title": "Check Validity",
+        "input": {
+          "userName": "Moaid"
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:41:00 GMT",
+        "endTime": "11 Apr 2020 13:41:00 GMT",
+        "children": []
+      },
+      {
+        "id": "1_2",
+        "title": "Check Password Strength",
+        "input": {
+          "password": "Hathot"
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:41:01 GMT",
+        "endTime": "11 Apr 2020 13:41:01 GMT",
+        "children": []
+      },
+      {
+        "id": "1_3",
+        "title": "Send Email Varification",
+        "input": {
+          "userName": "Moaid",
+          "isHtmlEmail": true
+        },
+        "output": {},
+        "startTime": "11 Apr 2020 13:41:01 GMT",
+        "endTime": "",
+        "children": [
+          {
+            "id": "1_3_1",
+            "title": "Wait for email event",
+            "input": {
+              "urlFromEmail": "Some fancy shmancy URL"
+            },
+            "output": {},
+            "startTime": "11 Apr 2020 13:41:02 GMT",
+            "endTime": "",
+            "children": []
+          },
+          {
+            "id": "1_3_2tmp",
+            "title": "Check validation code",
+            "input": {},
+            "output": {},
+            "startTime": "",
+            "endTime": "",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "1_4tmp",
+        "title": "Enable Functionality",
+        "input": {},
+        "output": {},
+        "startTime": "",
+        "endTime": "",
+        "children": []
+      },
+      {
+        "id": "1_5tmp",
+        "title": "Send welcome email",
+        "input": {},
+        "output": {},
+        "startTime": "",
+        "endTime": "",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Register User Orchestrator",
+    "input": {
+      "userName": "Alex",
+      "password": "Pshul",
+      "isTodayBirthday": false
+    },
+    "output": {
+      "message": "It's not your birthday",
+      "fullName": "Alex Pshul"
+    },
+    "startTime": "11 Apr 2020 13:34:26 GMT",
+    "endTime": "",
+    "children": [
+      {
+        "id": "2_1",
+        "title": "Check Validity",
+        "input": {
+          "userName": "Alex"
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:34:26 GMT",
+        "endTime": "11 Apr 2020 13:34:26 GMT",
+        "children": []
+      },
+      {
+        "id": "2_2",
+        "title": "Check Password Strength",
+        "input": {
+          "password": "Pshul"
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:34:27 GMT",
+        "endTime": "11 Apr 2020 13:34:27 GMT",
+        "children": []
+      },
+      {
+        "id": "2_3",
+        "title": "Send Email Varification",
+        "input": {
+          "userName": "Alex",
+          "isHtmlEmail": true
+        },
+        "output": {},
+        "startTime": "11 Apr 2020 13:34:27 GMT",
+        "endTime": "",
+        "children": [
+          {
+            "id": "2_3_1",
+            "title": "Wait for email event",
+            "input": {
+              "urlFromEmail": "Some fancy shmancy URL"
+            },
+            "output": {
+              "isVerified": true
+            },
+            "startTime": "11 Apr 2020 13:34:28 GMT",
+            "endTime": "11 Apr 2020 13:34:38 GMT",
+            "children": []
+          },
+          {
+            "id": "2_3_2",
+            "title": "Check validation code",
+            "input": {
+              "verificationCode": "Some very long verification code"
+            },
+            "output": {},
+            "startTime": "11 Apr 2020 13:34:38 GMT",
+            "endTime": "11 Apr 2020 13:34:38 GMT",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "2_4",
+        "title": "Enable Functionality",
+        "input": {
+          "userName": "Alex",
+          "enableAll": true
+        },
+        "output": {},
+        "startTime": "11 Apr 2020 13:34:39 GMT",
+        "endTime": "",
+        "children": []
+      },
+      {
+        "id": "2_5tmp",
+        "title": "Send welcome email",
+        "input": {},
+        "output": {},
+        "startTime": "",
+        "endTime": "",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Enable 2FA",
+    "input": {
+      "userName": "Alex"
+    },
+    "output": {},
+    "startTime": "11 Apr 2020 13:02:55 GMT",
+    "endTime": "11 Apr 2020 13:03:05 GMT",
+    "children": [
+      {
+        "id": "3_1",
+        "title": "Validate User",
+        "input": {
+          "userName": "Alex"
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:02:55 GMT",
+        "endTime": "11 Apr 2020 13:02:55 GMT",
+        "children": []
+      },
+      {
+        "id": "3_2",
+        "title": "Setup method",
+        "input": {
+          "method": "Phone"
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:02:56 GMT",
+        "endTime": "11 Apr 2020 13:03:04 GMT",
+        "children": [
+          {
+            "id": "3_2_1",
+            "title": "Fetch method details",
+            "input": {
+              "method": "Phone"
+            },
+            "output": {
+              "number": "0501234567"
+            },
+            "startTime": "11 Apr 2020 13:02:56 GMT",
+            "endTime": "11 Apr 2020 13:02:56 GMT",
+          },
+          {
+            "id": "3_2_2",
+            "title": "Send SMS with code",
+            "input": {
+              "number": "0501234567"
+            },
+            "output": {
+              "error": ""
+            },
+            "startTime": "11 Apr 2020 13:02:56 GMT",
+            "endTime": "11 Apr 2020 13:02:57 GMT",
+            "children": []
+          },
+          {
+            "id": "3_2_3",
+            "title": "Wait for confirmation",
+            "input": {
+              "number": "0501234567"
+            },
+            "output": {
+              "isValidated": true
+            },
+            "startTime": "11 Apr 2020 13:02:56 GMT",
+            "endTime": "11 Apr 2020 13:03:04 GMT",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "3_3",
+        "title": "Finalize Setup",
+        "input": {
+          "method": "Phone",
+          "number": "0501234567",
+          "isVerified": true
+        },
+        "output": {
+          "error": ""
+        },
+        "startTime": "11 Apr 2020 13:03:04 GMT",
+        "endTime": "11 Apr 2020 13:03:05 GMT",
+        "children": []
+      }
+    ]
+  }
+]
