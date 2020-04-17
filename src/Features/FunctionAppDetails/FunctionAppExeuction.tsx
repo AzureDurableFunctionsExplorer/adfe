@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withStyles, createStyles, WithStyles, Typography } from '@material-ui/core';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
-import CheckIcon from '@material-ui/icons/Check';
 import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
+import { ExecutionStatusIcon } from '../../Core/Components/ExecutionStatusIcon';
 
 interface FunctionAppExecutionProps {
   execution: FunctionExecutionModel,
@@ -10,22 +9,26 @@ interface FunctionAppExecutionProps {
   executionSelected: (execution: FunctionExecutionModel) => void
 }
 
-type FunctionAppExecutionClasses = 'root' | 'selected' | 'mainArea' | 'indicator' | 'title' | 'startTime' | 'status' | 'inProgress';
+type FunctionAppExecutionClasses = 'root' | 'selected' | 'mainArea' | 'indicator' | 'title' | 'startTime';
 
-const FunctionAppExecutionInner = ({ execution, isSelected, executionSelected, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => (
-  <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} onClick={(e) => executionSelected(execution)}>
-    <div className={classes.indicator} />
-    <div className={classes.mainArea}>
-      <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
-      <Typography variant="body2" className={classes.startTime} >{execution.startTime}</Typography>
+const FunctionAppExecutionInner = ({ execution, isSelected, executionSelected, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => {
+  const [isPointerOver, setIsPointerOver] = useState(false);
+
+  return (
+    <div
+      className={`${classes.root} ${isSelected ? classes.selected : ""}`}
+      onClick={(e) => executionSelected(execution)}
+      onPointerOver={() => setIsPointerOver(true)}
+      onPointerLeave={() => setIsPointerOver(false)}>
+      <div className={classes.indicator} />
+      <div className={classes.mainArea}>
+        <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
+        <Typography variant="body2" className={classes.startTime} >{execution.startTime}</Typography>
+      </div>
+      <ExecutionStatusIcon active={execution.isRunning} selected={isSelected} highlighted={isPointerOver} />
     </div>
-    {
-      execution.isRunning
-        ? <CheckIcon className={classes.status} />
-        : <AutorenewIcon className={`${classes.status} ${classes.inProgress}`} />
-    }
-  </div>
-)
+  )
+}
 
 export const FunctionAppExecution = withStyles(
   theme => createStyles({
@@ -45,9 +48,6 @@ export const FunctionAppExecution = withStyles(
         },
         "& $indicator": {
           backgroundColor: theme.palette.secondary.main
-        },
-        "& $status": {
-          color: theme.palette.secondary.main
         }
       },
       "&$selected": {
@@ -61,9 +61,6 @@ export const FunctionAppExecution = withStyles(
         },
         "& $indicator": {
           backgroundColor: theme.palette.secondary.dark
-        },
-        "& $status": {
-          color: theme.palette.secondary.dark
         }
       }
     },
@@ -85,18 +82,6 @@ export const FunctionAppExecution = withStyles(
     status: {
       maxWidth: "20px",
       maxHeight: "20px",
-    },
-    inProgress: {
-      WebkitAnimation: "$spin 2s linear infinite", /* Safari */
-      animation: "$spin 2s linear infinite"
-    },
-    "@keyframes spin": {
-      "0%": {
-        transform: "rotate(0deg)"
-      },
-      "100%": {
-        transform: "rotate(360deg)"
-      }
     }
   })
 )(FunctionAppExecutionInner);
