@@ -1,6 +1,6 @@
 import { ChildStore } from "./Core/ChildStore";
 import { FunctionAppModel } from "../Models";
-import { FunctionsService } from "../Features/FunctionsList/FunctionsService";
+import { FunctionsService } from "../Services/Functions.service";
 import { observable, action, computed } from "mobx";
 
 export class FunctionAppsStore extends ChildStore {

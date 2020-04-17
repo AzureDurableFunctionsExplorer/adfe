@@ -1,7 +1,7 @@
 import { from } from 'rxjs';
 import { delay } from 'rxjs/operators'
-import { FunctionAppDto } from '../../Dtos';
-import MockApps from '../../assets/mocks/MockApps.json';
+import { FunctionAppDto } from '../Dtos';
+import MockApps from '../assets/mocks/MockApps.json';
 
 export class FunctionsService {
 

@@ -1,6 +1,6 @@
 import { ChildStore } from "./Core";
 import { observable, action, computed } from "mobx";
-import { FunctionAppExecutionService } from "../Features/FunctionAppDetails/FunctionAppExecutionsService";
+import { FunctionAppExecutionService } from "../Services/FunctionAppExecutions.service";
 import { FunctionExecutionModel } from "../Models/FunctionExecution.model";
 import { tap, switchMap, map, filter } from "rxjs/operators";
 import { FunctionExecutionDto } from "../Dtos/FunctionExecution.dto";

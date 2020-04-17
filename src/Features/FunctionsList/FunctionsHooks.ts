@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FunctionsService } from './FunctionsService';
+import { FunctionsService } from '../../Services/Functions.service';
 import { FunctionAppDto } from '../../Dtos';
 import { FunctionAppModel } from '../../Models';
 

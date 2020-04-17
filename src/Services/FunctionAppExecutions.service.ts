@@ -1,7 +1,7 @@
 import { from } from "rxjs";
 import { delay } from "rxjs/operators";
-import MockOrchestrators from '../../assets/mocks/MockOrchestrators.json';
-import { FunctionExecutionDto } from "../../Dtos/FunctionExecution.dto";
+import MockOrchestrators from '../assets/mocks/MockOrchestrators.json';
+import { FunctionExecutionDto } from "../Dtos/FunctionExecution.dto";
 
 export class FunctionAppExecutionService {
   public static getFunctionAppExecutions(functionAppId: string): Promise<FunctionExecutionDto[]> {
