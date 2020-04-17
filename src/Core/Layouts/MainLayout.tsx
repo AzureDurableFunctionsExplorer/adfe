@@ -5,7 +5,7 @@ import FunctionsList from "../../Features/FunctionsList/FunctionsList";
 import FunctionAppDetails from "../../Features/FunctionAppDetails/FunctionAppDetails";
 import { useStore } from "../../Stores/Core";
 import { useObserver } from "mobx-react-lite";
-import ExecutionDetailsTitle from "../../Features/ExecutionDetails/ExecutionDetailsTitle";
+import { ExecutionDetailsHeader } from "../../Features/ExecutionDetails/ExecutionDetailsHeader";
 import ExecutionPartsList from "../../Features/ExecutionDetails/ExecutionPartsList";
 
 type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails";
@@ -42,7 +42,7 @@ const MainLayout = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
         <div className={classes.executionPanel}>
           <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="down">
             <div className={classes.executionTitle}>
-              <ExecutionDetailsTitle></ExecutionDetailsTitle>
+              <ExecutionDetailsHeader></ExecutionDetailsHeader>
             </div>
           </Slide>
           <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="right">

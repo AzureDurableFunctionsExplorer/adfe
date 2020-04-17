@@ -1,6 +1,9 @@
 import React from 'react';
 import { withStyles, createStyles, WithStyles, Typography } from '@material-ui/core';
 import { ReactComponent as AzureFunctionIcon } from "../../assets/images/azure-functions-icon.svg";
+import { Closable } from '../../Core/Layouts/Closable';
+import { useObserver } from 'mobx-react-lite';
+import { useStore } from '../../Stores/Core';
 
 interface FunctionAppDetailsHeaderProps {
   functionName: string
@@ -9,10 +12,16 @@ interface FunctionAppDetailsHeaderProps {
 type FunctionAppDetailsHeaderClasses = 'container' | 'icon' | 'title';
 
 const FunctionAppDetailsHeader = ({ functionName, classes }: FunctionAppDetailsHeaderProps & WithStyles<FunctionAppDetailsHeaderClasses>) => {
-  return (
-    <div className={classes.container}>
-      <AzureFunctionIcon className={classes.icon} />
-      <Typography variant="h5" className={classes.title}>{functionName}</Typography>
+  const functionAppsStore = useStore("functionApps");
+
+  return useObserver(() =>
+    <div>
+      <Closable onClose={() => functionAppsStore.selectFunctionApp("")}>
+        <div className={classes.container}>
+          <AzureFunctionIcon className={classes.icon} />
+          <Typography variant="h5" className={classes.title}>{functionName}</Typography>
+        </div>
+      </Closable>
     </div>
   );
 }
