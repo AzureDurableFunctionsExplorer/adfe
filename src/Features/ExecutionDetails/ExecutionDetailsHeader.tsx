@@ -30,7 +30,7 @@ export const ExecutionDetailsHeader = withStyles(theme =>
     },
     "title": {},
     "time": {
-      margin: "0 5px 1.5px 5px"
+      margin: "0 5px 2px 5px"
     }
   })
 )(ExecutionDetailsHeaderInner);
