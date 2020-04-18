@@ -1,7 +1,7 @@
 import React from 'react'
 import { ExecutionPartsModel } from '../../Models/ExecutionPart.model'
 import { WithStyles, Typography, withStyles, createStyles, StyleRules } from '@material-ui/core'
-import { ExecutionStatusIcon } from '../../Core/Components/ExecutionStatusIcon';
+import { ExecutionStatusIcon, ExecutionStatus } from '../../Core/Components/ExecutionStatusIcon';
 import { useIsPointerOver } from '../../Core/Hooks/useIsPointerOver';
 import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
@@ -12,7 +12,7 @@ export interface ExecutionPartProps {
   stylesFactory: (indentIndex: number) => StyleRules<ExecutionPartClasses, ExecutionPartProps>;
 }
 
-export type ExecutionPartClasses = "root" | "selected" | "statusIndicator" | "title";
+export type ExecutionPartClasses = "root" | "selected" | "disabled" | "statusIndicator" | "title";
 
 const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classes }: ExecutionPartProps & WithStyles<ExecutionPartClasses>) => {
   const [isPointerOver, ref] = useIsPointerOver(null);
@@ -27,8 +27,11 @@ const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classe
 
     return (
       <>
-        <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} ref={ref} onClick={(e) => executionPartsStore.selectPart(executionParts.id)}>
-          <ExecutionStatusIcon active={!executionParts.endTime} selected={isSelected} highlighted={isPointerOver} />
+        <div
+          className={`${classes.root} ${isSelected ? classes.selected : ""} ${!executionParts.startTime ? classes.disabled : ""}`}
+          ref={ref}
+          onClick={(e) => executionPartsStore.selectPart(executionParts.id)}>
+          <ExecutionStatusIcon status={executionPartToIconStatus(executionParts)} selected={isSelected} highlighted={isPointerOver} />
           <Typography variant="body1" className={classes.title}>{executionParts.title}</Typography>
         </div>
 
@@ -39,6 +42,14 @@ const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classe
     )
   }
   )
+}
+
+const executionPartToIconStatus = (executionPart: ExecutionPartsModel): ExecutionStatus => {
+  return !executionPart.startTime
+    ? 'waiting'
+    : executionPart.endTime
+      ? 'done'
+      : 'active';
 }
 
 export const ExecutionPart = withStyles(
@@ -56,9 +67,14 @@ export const ExecutionPart = withStyles(
         "& $title": {
           color: theme.palette.secondary.dark
         }
+      },
+      "&$disabled": {
+        pointerEvents: "none",
+        opacity: 0.3
       }
     },
     selected: {},
+    disabled: {},
     statusIndicator: {},
     title: {}
   })

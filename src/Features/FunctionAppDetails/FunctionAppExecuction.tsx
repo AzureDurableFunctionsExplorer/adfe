@@ -28,7 +28,7 @@ const FunctionAppExecutionInner = ({ execution, isSelected, executionSelected, c
         <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
         <Typography variant="body2" className={classes.startTime} >{execution.startTime}</Typography>
       </div>
-      <ExecutionStatusIcon active={execution.isRunning} selected={isSelected} highlighted={isPointerOver} />
+      <ExecutionStatusIcon status={execution.isRunning ? 'active' : 'done'} selected={isSelected} highlighted={isPointerOver} />
     </div >
   )
 }

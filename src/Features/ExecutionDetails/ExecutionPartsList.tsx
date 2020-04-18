@@ -15,6 +15,7 @@ const singlePartStyles = (indentIndex: number) => createStyles<ExecutionPartClas
     padding: `10px ${15 + (indicatorSize + titleMargin) * indentIndex}px`
   },
   selected: {},
+  disabled: {},
   statusIndicator: {
     width: `${indicatorSize}px`,
     height: `${indicatorSize}px`
