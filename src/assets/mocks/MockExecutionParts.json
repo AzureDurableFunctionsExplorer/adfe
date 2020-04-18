@@ -274,7 +274,16 @@
         "input": {
           "method": "Phone",
           "number": "0501234567",
-          "isVerified": true
+          "isVerified": true,
+          "anotherProperty": "With very long value that will probably wrap around",
+          "stillTrying": true,
+          "whyTrying": "To see the scroll bar",
+          "thatMeans": "More properties",
+          "howManyMore": 5,
+          "thatMany": true,
+          "hopefullyItWillWork": true,
+          "oneMoreLeft": "yay",
+          "finallyDone": true
         },
         "output": {
           "error": ""

@@ -1,15 +1,24 @@
 import React from 'react'
-import { Typography, withStyles, createStyles, WithStyles } from '@material-ui/core'
+import { Typography, withStyles, createStyles, WithStyles, Paper } from '@material-ui/core'
 import { useStore } from '../../Stores/Core'
 import { ClosableHeader } from '../../Core/Layouts/ClosableHeader';
 import { useObserver } from 'mobx-react-lite';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import { Tooltip } from '../../Core/Components/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
+import { ExecutionPartSmallField } from './ExecutionPartSmallField';
+import { ExecutionPartLargeField } from './ExecutionPartLargeField';
 
-type ExecutionPartDetailsClasses = "root" | "title" | "detailsContainer" | "fieldTitle" | "fieldContainer";
+type ExecutionPartDetailsClasses = "root" | "title" | "detailsContainer" | "emptyRow";
 
 const ExecutionPartDetailsInner = ({ classes }: WithStyles<ExecutionPartDetailsClasses>) => {
   const executionPartsStore = useStore("executionParts");
 
   const part = executionPartsStore.selectedPart;
+
+  const endTimeString = part?.endTime
+    ? `${part?.endTime?.toDateString()} ${part?.endTime?.toLocaleTimeString()}`
+    : undefined;
 
   return useObserver(() =>
     <div className={classes.root}>
@@ -17,17 +26,17 @@ const ExecutionPartDetailsInner = ({ classes }: WithStyles<ExecutionPartDetailsC
         <Typography className={classes.title} variant="h5">{executionPartsStore.selectedPart?.title}</Typography>
       </ClosableHeader>
       <div className={classes.detailsContainer}>
-        <Typography className={classes.fieldTitle} variant="h6">Execution Start</Typography>
-        <Typography variant="h6">{`${part?.startTime?.toDateString()} ${part?.startTime?.toLocaleTimeString()}`}</Typography>
-        {
-          !part?.endTime
-            ? null
-            :
-            <>
-              <Typography className={classes.fieldTitle} variant="h6">Execution End</Typography>
-              <Typography variant="h6">{`${part?.endTime?.toDateString()} ${part?.endTime?.toLocaleTimeString()}`}</Typography>
-            </>
-        }
+
+        <ExecutionPartSmallField title="Execution Start" value={`${part?.startTime?.toDateString()} ${part?.startTime?.toLocaleTimeString()}`} />
+        <ExecutionPartSmallField title="Execution End" value={endTimeString} />
+
+        <div className={classes.emptyRow} />
+        <div className={classes.emptyRow} />
+
+        <ExecutionPartLargeField title="Input" value={JSON.stringify(part?.input, null, 4)} />
+        <div className={classes.emptyRow} />
+        <ExecutionPartLargeField title="Output" value={JSON.stringify(part?.output, null, 4)} />
+
       </div>
     </div>
   )
@@ -45,11 +54,11 @@ export const ExecutionPartDetails = withStyles(
       display: "grid",
       gridTemplateColumns: "30% auto",
       gridTemplateRows: "auto",
-      gridGap: "5px"
+      gridGap: "10px"
     },
-    fieldTitle: {
-      fontWeight: "bold"
-    },
-    fieldContainer: {}
+    emptyRow: {
+      height: "16px",
+      gridColumn: "1 / span 2"
+    }
   })
 )(ExecutionPartDetailsInner);
