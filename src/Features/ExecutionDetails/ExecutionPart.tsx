@@ -5,6 +5,8 @@ import { ExecutionStatusIcon, ExecutionStatus } from '../../Core/Components/Exec
 import { useIsPointerOver } from '../../Core/Hooks/useIsPointerOver';
 import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
+import { Tooltip } from '../../Core/Components/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 export interface ExecutionPartProps {
   executionParts: ExecutionPartsModel,
@@ -24,24 +26,37 @@ const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classe
   return useObserver(() => {
 
     const isSelected = executionPartsStore.selectedPartId === executionParts.id;
+    const isDisabled = !executionParts.startTime;
+
+    const handlePartClick = () => {
+      if (!isDisabled) {
+        executionPartsStore.selectPart(executionParts.id)
+      }
+    }
 
     return (
       <>
-        <div
-          className={`${classes.root} ${isSelected ? classes.selected : ""} ${!executionParts.startTime ? classes.disabled : ""}`}
-          ref={ref}
-          onClick={(e) => executionPartsStore.selectPart(executionParts.id)}>
-          <ExecutionStatusIcon status={executionPartToIconStatus(executionParts)} selected={isSelected} highlighted={isPointerOver} />
-          <Typography variant="body1" className={classes.title}>{executionParts.title}</Typography>
-        </div>
+        <Tooltip
+          title="This is an assumption, based on previous runs. The actual run might differ."
+          disableHoverListener={!isDisabled}
+          placement="top"
+          arrow
+          TransitionComponent={Zoom}>
+          <div
+            className={`${classes.root} ${isSelected ? classes.selected : ""} ${isDisabled ? classes.disabled : ""}`}
+            ref={ref}
+            onClick={(e) => handlePartClick()}>
+            <ExecutionStatusIcon status={executionPartToIconStatus(executionParts)} selected={isSelected} highlighted={isPointerOver} />
+            <Typography variant="body1" className={classes.title}>{executionParts.title}</Typography>
+          </div>
+        </Tooltip>
 
         {
           executionParts?.children?.map(child => (<ChildExecutionPart key={child.id} executionParts={child} indentIndex={childIndentIndex} stylesFactory={stylesFactory} />))
         }
       </>
     )
-  }
-  )
+  })
 }
 
 const executionPartToIconStatus = (executionPart: ExecutionPartsModel): ExecutionStatus => {
@@ -57,9 +72,11 @@ export const ExecutionPart = withStyles(
     root: {
       cursor: "pointer",
       "&:hover": {
-        backgroundColor: theme.palette.primary.dark,
-        "& $title": {
-          color: theme.palette.secondary.main
+        "&:not($disabled)": {
+          backgroundColor: theme.palette.primary.dark,
+          "& $title": {
+            color: theme.palette.secondary.main
+          }
         }
       },
       "&$selected": {
@@ -69,7 +86,6 @@ export const ExecutionPart = withStyles(
         }
       },
       "&$disabled": {
-        pointerEvents: "none",
         opacity: 0.3
       }
     },
