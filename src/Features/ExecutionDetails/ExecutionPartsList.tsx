@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { Skeleton } from '@material-ui/lab'
 import { useStore } from '../../Stores/Core'
 import { useObserver } from 'mobx-react-lite'
@@ -8,11 +8,11 @@ import { withStyles, createStyles, WithStyles } from '@material-ui/core'
 const indicatorSize = 18;
 const titleMargin = 10;
 
-const singlePartStyles = createStyles<ExecutionPartClasses, {}>({
+const singlePartStyles = (indentIndex: number) => createStyles<ExecutionPartClasses, {}>({
   root: {
     display: "flex",
     alignItems: "center",
-    padding: "10px 15px"
+    padding: `10px ${15 + (indicatorSize + titleMargin) * indentIndex}px`
   },
   statusIndicator: {
     width: `${indicatorSize}px`,
@@ -24,41 +24,54 @@ const singlePartStyles = createStyles<ExecutionPartClasses, {}>({
     flexGrow: 1
   },
   childrenContainer: {
-    marginLeft: `${indicatorSize + titleMargin}px`
+
   }
 });
 
-const ExecutionPartsItemLoaderStyless = ({ children, classes }: PropsWithChildren<{}> & WithStyles<ExecutionPartClasses>) => (
-  <>
-    <div className={classes.root}>
-      <Skeleton variant="circle" className={classes.statusIndicator} />
-      <Skeleton variant="rect" className={classes.title} />
-    </div>
-    <div className={classes.childrenContainer}>
-      {children}
-    </div>
-  </>
-)
+interface ExecutionPartsItemLoaderChildren {
+  children?: ExecutionPartsItemLoaderChildren[]
+}
 
-const ExecutionPartsItemLoader = withStyles(singlePartStyles)(ExecutionPartsItemLoaderStyless);
+const ExecutionPartsItemLoaderStyless = ({ classes, indentIndex, loaderChildren }: { indentIndex?: number, loaderChildren: ExecutionPartsItemLoaderChildren } & WithStyles<ExecutionPartClasses>) => {
+  const childIndentIndex = (indentIndex || 0) + 1;
+  const IndentedChild = withStyles(singlePartStyles(childIndentIndex))(ExecutionPartsItemLoaderStyless);
 
-const ExecutionPartsListLoader = () => (
-  <ExecutionPartsItemLoader>
-    <ExecutionPartsItemLoader />
-    <ExecutionPartsItemLoader />
-    <ExecutionPartsItemLoader>
-      <ExecutionPartsItemLoader>
-        <ExecutionPartsItemLoader />
-        <ExecutionPartsItemLoader />
-      </ExecutionPartsItemLoader>
-      <ExecutionPartsItemLoader />
-      <ExecutionPartsItemLoader />
-    </ExecutionPartsItemLoader>
-    <ExecutionPartsItemLoader />
-  </ExecutionPartsItemLoader>
-)
+  return (
+    <>
+      <div className={classes.root}>
+        <Skeleton variant="circle" className={classes.statusIndicator} />
+        <Skeleton variant="rect" className={classes.title} />
+      </div>
+      {
+        loaderChildren.children?.map((child, index) => <IndentedChild key={index} indentIndex={childIndentIndex} loaderChildren={child} />)
+      }
+    </>
+  )
+}
 
-const ExecutionPart = withStyles(singlePartStyles)(StylessExecutionPart);
+const ExecutionPartsItemLoader = withStyles(singlePartStyles(0))(ExecutionPartsItemLoaderStyless);
+
+const loaderStructure = {
+  children: [
+    {},
+    {},
+    {
+      children: [
+        {
+          children: [
+            {},
+            {}
+          ]
+        },
+        {},
+        {},
+      ]
+    },
+    {}
+  ]
+}
+
+const ExecutionPart = withStyles(singlePartStyles(0))(StylessExecutionPart);
 
 export const ExecutionPartsList = () => {
   const executionPartsStore = useStore("executionParts");
@@ -67,8 +80,8 @@ export const ExecutionPartsList = () => {
     <div style={{ marginTop: "10px" }}>
       {
         executionPartsStore.isLoading
-          ? <ExecutionPartsListLoader />
-          : <ExecutionPart executionParts={executionPartsStore.executionParts!} />
+          ? <ExecutionPartsItemLoader loaderChildren={loaderStructure} />
+          : <ExecutionPart executionParts={executionPartsStore.executionParts!} stylesFactory={singlePartStyles} />
       }
     </div>
   )
