@@ -5,15 +5,15 @@ export const useIsPointerOver = <T extends HTMLElement | null>(initial: T): [boo
   const ref = useRef(initial);
 
   useEffect(() => {
-    if (ref.current !== null) {
-      ref.current.onpointerover = (e) => setIsPointerOver(true);
-      ref.current.onpointerleave = (e) => setIsPointerOver(false);
+    const currentRef = ref.current;
+
+    if (currentRef !== null) {
+      currentRef.onpointerover = (e) => setIsPointerOver(true);
+      currentRef.onpointerleave = (e) => setIsPointerOver(false);
 
       return () => {
-        if (ref.current !== null) {
-          ref.current.onpointerover = null;
-          ref.current.onpointerleave = null;
-        }
+        currentRef.onpointerover = null;
+        currentRef.onpointerleave = null;
       };
     }
   }, [])
