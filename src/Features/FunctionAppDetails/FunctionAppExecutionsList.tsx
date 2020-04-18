@@ -2,7 +2,7 @@ import React from 'react'
 import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
 import { Skeleton } from '@material-ui/lab';
-import { FunctionAppExecution } from './FunctionAppExeuction';
+import { FunctionAppExecution } from './FunctionAppExecuction';
 import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
 
 const FunctionAppExecutionsLoader = ({ repeat }: { repeat?: number }) => {
