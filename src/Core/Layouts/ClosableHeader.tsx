@@ -4,13 +4,14 @@ import { WithStyles, withStyles, createStyles } from '@material-ui/core';
 
 export interface ClosableProps {
   onClose: () => void;
+  borderless?: boolean;
 }
 
-type ClosableHeaderClasses = "root" | "closeIcon" | "childrenContainer";
+type ClosableHeaderClasses = "root" | "border" | "closeIcon" | "childrenContainer";
 
-const ClosableHeaderInner = ({ classes, children, onClose }: PropsWithChildren<ClosableProps> & WithStyles<ClosableHeaderClasses>) => {
+const ClosableHeaderInner = ({ classes, children, onClose, borderless }: PropsWithChildren<ClosableProps> & WithStyles<ClosableHeaderClasses>) => {
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} ${borderless ? "" : classes.border}`}>
       <ArrowBackIcon className={classes.closeIcon} onClick={() => onClose()}></ArrowBackIcon>
       <div className={classes.childrenContainer}>
         {children}
@@ -23,8 +24,10 @@ export const ClosableHeader = withStyles(
   theme => createStyles({
     root: {
       display: "flex",
-      borderBottom: "1px solid " + theme.palette.primary.main,
       padding: "20px 10px 10px 10px"
+    },
+    border: {
+      borderBottom: "1px solid " + theme.palette.primary.main,
     },
     closeIcon: {
       color: theme.palette.primary.main,

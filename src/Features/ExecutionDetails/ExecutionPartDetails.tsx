@@ -10,7 +10,7 @@ const ExecutionPartDetailsInner = ({ classes }: WithStyles<ExecutionPartDetailsC
 
   return (
     <div className={classes.root}>
-      <ClosableHeader onClose={() => executionPartsStore.selectPart("")}>
+      <ClosableHeader onClose={() => executionPartsStore.selectPart("")} borderless>
         <Typography className={classes.title} variant="h5">{executionPartsStore.selectedPart?.title}</Typography>
       </ClosableHeader>
     </div>
@@ -19,7 +19,10 @@ const ExecutionPartDetailsInner = ({ classes }: WithStyles<ExecutionPartDetailsC
 
 export const ExecutionPartDetails = withStyles(
   theme => createStyles({
-    root: {},
+    root: {
+      display: "flex",
+      flexDirection: "column"
+    },
     title: {}
   })
 )(ExecutionPartDetailsInner);
