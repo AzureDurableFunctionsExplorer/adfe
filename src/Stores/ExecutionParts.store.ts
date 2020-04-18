@@ -20,7 +20,6 @@ export class ExecutionPartsStore extends ChildStore {
         map(executionPartsDto => this.convertToModel(executionPartsDto))
       )
       .subscribe(executionPartsModel => {
-        console.log("MODELS: ", executionPartsModel);
         this.executionParts = executionPartsModel;
         this.isLoading = false;
       });
