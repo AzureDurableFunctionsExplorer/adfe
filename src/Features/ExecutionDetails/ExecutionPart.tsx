@@ -9,7 +9,7 @@ export interface ExecutionPartProps {
   stylesFactory: (indentIndex: number) => StyleRules<ExecutionPartClasses, ExecutionPartProps>;
 }
 
-export type ExecutionPartClasses = "root" | "statusIndicator" | "title" | "childrenContainer";
+export type ExecutionPartClasses = "root" | "statusIndicator" | "title";
 
 const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classes }: ExecutionPartProps & WithStyles<ExecutionPartClasses>) => {
   if (!executionParts) {
@@ -25,13 +25,12 @@ const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classe
         <ExecutionStatusIcon active={!executionParts.endTime} selected={false} highlighted={false} />
         <Typography variant="body1" className={classes.title}>{executionParts.title}</Typography>
       </div>
-      <div className={classes.childrenContainer}>
-        {
-          executionParts?.children?.map(child => {
-            return <ChildExecutionPart key={child.id} executionParts={child} indentIndex={childIndentIndex} stylesFactory={stylesFactory} />
-          })
-        }
-      </div>
+
+      {
+        executionParts?.children?.map(child => {
+          return <ChildExecutionPart key={child.id} executionParts={child} indentIndex={childIndentIndex} stylesFactory={stylesFactory} />
+        })
+      }
     </>
   )
 }
@@ -44,7 +43,6 @@ export const ExecutionPart = withStyles(
       }
     },
     statusIndicator: {},
-    title: {},
-    childrenContainer: {}
+    title: {}
   })
 )(ExecutionPartInner);

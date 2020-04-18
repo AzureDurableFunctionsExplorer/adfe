@@ -22,9 +22,6 @@ const singlePartStyles = (indentIndex: number) => createStyles<ExecutionPartClas
     height: "20px",
     margin: `0 ${titleMargin}px`,
     flexGrow: 1
-  },
-  childrenContainer: {
-
   }
 });
 
