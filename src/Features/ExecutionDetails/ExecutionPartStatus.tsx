@@ -16,12 +16,12 @@ export interface ExecutionPartProps {
 
 export type ExecutionPartClasses = "root" | "selected" | "disabled" | "statusIndicator" | "title";
 
-const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classes }: ExecutionPartProps & WithStyles<ExecutionPartClasses>) => {
+const ExecutionPartStatusInner = ({ executionParts, indentIndex, stylesFactory, classes }: ExecutionPartProps & WithStyles<ExecutionPartClasses>) => {
   const [isPointerOver, ref] = useIsPointerOver(null);
   const executionPartsStore = useStore("executionParts");
 
   const childIndentIndex = (indentIndex || 0) + 1;
-  const ChildExecutionPart = withStyles(stylesFactory(childIndentIndex))(ExecutionPart);
+  const ChildExecutionPart = withStyles(stylesFactory(childIndentIndex))(ExecutionPartStatus);
 
   return useObserver(() => {
 
@@ -67,7 +67,7 @@ const executionPartToIconStatus = (executionPart: ExecutionPartsModel): Executio
       : 'active';
 }
 
-export const ExecutionPart = withStyles(
+export const ExecutionPartStatus = withStyles(
   theme => createStyles({
     root: {
       cursor: "pointer",
@@ -94,4 +94,4 @@ export const ExecutionPart = withStyles(
     statusIndicator: {},
     title: {}
   })
-)(ExecutionPartInner);
+)(ExecutionPartStatusInner);

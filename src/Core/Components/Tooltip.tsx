@@ -1,4 +1,3 @@
-import React from 'react'
 import { withStyles, createStyles, Tooltip as MuiTooltip } from '@material-ui/core'
 
 export const Tooltip = withStyles(

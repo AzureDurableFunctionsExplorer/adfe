@@ -7,8 +7,9 @@ import { useStore } from "../../Stores/Core";
 import { useObserver } from "mobx-react-lite";
 import { ExecutionDetailsHeader } from "../../Features/ExecutionDetails/ExecutionDetailsHeader";
 import { ExecutionPartsList } from "../../Features/ExecutionDetails/ExecutionPartsList";
+import { ExecutionPartDetails } from "../../Features/ExecutionDetails/ExecutionPartDetails";
 
-type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails";
+type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails" | "executionPart";
 
 const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
@@ -23,6 +24,7 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
   const functionAppsStore = useStore("functionApps");
   const functionExecutionsStore = useStore("executions");
+  const executionPartsStore = useStore("executionParts");
 
   return useObserver(() => (
     <div className={classes.root}>
@@ -48,6 +50,11 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
           <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="right">
             <Paper elevation={5} square className={classes.executionDetails}>
               <ExecutionPartsList></ExecutionPartsList>
+            </Paper>
+          </Slide>
+          <Slide in={executionPartsStore.selectedPartId !== ""} direction="right">
+            <Paper elevation={5} square className={classes.executionPart}>
+              <ExecutionPartDetails />
             </Paper>
           </Slide>
         </div>
@@ -83,7 +90,7 @@ export const MainLayout = withStyles(
         gridTemplateRows: "6% auto",
         gridTemplateAreas: `
           "title title"
-          "execution-details sub-execution-details"
+          "execution-details execution-part-details"
           `,
         flexGrow: 1,
         zIndex: 39
@@ -95,6 +102,10 @@ export const MainLayout = withStyles(
       "executionDetails": {
         gridArea: "execution-details",
         zIndex: 37
+      },
+      "executionPart": {
+        gridArea: "execution-part-details",
+        zIndex: 36
       }
     })
 )(MainLayoutInner);

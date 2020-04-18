@@ -2,7 +2,7 @@ import React from 'react'
 import { Skeleton } from '@material-ui/lab'
 import { useStore } from '../../Stores/Core'
 import { useObserver } from 'mobx-react-lite'
-import { ExecutionPart as StylessExecutionPart, ExecutionPartClasses } from './ExecutionPart'
+import { ExecutionPartStatus as StylessExecutionPart, ExecutionPartClasses } from './ExecutionPartStatus'
 import { withStyles, createStyles, WithStyles } from '@material-ui/core'
 
 const indicatorSize = 18;
