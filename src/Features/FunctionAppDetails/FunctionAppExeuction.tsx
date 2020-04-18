@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { withStyles, createStyles, WithStyles, Typography } from '@material-ui/core';
 import { FunctionExecutionModel } from '../../Models/FunctionExecution.model';
 import { ExecutionStatusIcon } from '../../Core/Components/ExecutionStatusIcon';
+import { useIsPointerOver } from '../../Core/Hooks/useIsPointerOver';
 
 interface FunctionAppExecutionProps {
   execution: FunctionExecutionModel,
@@ -11,22 +12,24 @@ interface FunctionAppExecutionProps {
 
 type FunctionAppExecutionClasses = 'root' | 'selected' | 'mainArea' | 'indicator' | 'title' | 'startTime';
 
+
+
 const FunctionAppExecutionInner = ({ execution, isSelected, executionSelected, classes }: FunctionAppExecutionProps & WithStyles<FunctionAppExecutionClasses>) => {
-  const [isPointerOver, setIsPointerOver] = useState(false);
+  const [isPointerOver, ref] = useIsPointerOver(null);
 
   return (
     <div
       className={`${classes.root} ${isSelected ? classes.selected : ""}`}
       onClick={(e) => executionSelected(execution)}
-      onPointerOver={() => setIsPointerOver(true)}
-      onPointerLeave={() => setIsPointerOver(false)}>
+      ref={ref}>
+
       <div className={classes.indicator} />
       <div className={classes.mainArea}>
         <Typography variant="body1" className={classes.title} >{execution.functionName}</Typography>
         <Typography variant="body2" className={classes.startTime} >{execution.startTime}</Typography>
       </div>
       <ExecutionStatusIcon active={execution.isRunning} selected={isSelected} highlighted={isPointerOver} />
-    </div>
+    </div >
   )
 }
 
