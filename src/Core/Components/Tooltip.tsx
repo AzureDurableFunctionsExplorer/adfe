@@ -6,7 +6,8 @@ export const Tooltip = withStyles(
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.secondary.main,
       fontSize: "14px",
-      fontWeight: "bold"
+      fontWeight: "bold",
+      maxWidth: "200px"
     },
     arrow: {
       color: theme.palette.primary.main

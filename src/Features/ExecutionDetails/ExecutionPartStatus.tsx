@@ -41,7 +41,8 @@ const ExecutionPartStatusInner = ({ executionParts, indentIndex, stylesFactory, 
           disableHoverListener={!isDisabled}
           placement="top"
           arrow
-          TransitionComponent={Zoom}>
+          TransitionComponent={Zoom}
+          enterDelay={1000}>
           <div
             className={`${classes.root} ${isSelected ? classes.selected : ""} ${isDisabled ? classes.disabled : ""}`}
             ref={ref}
