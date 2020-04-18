@@ -24,6 +24,12 @@ export class ExecutionPartsStore extends ChildStore {
   initialize() {
     toObservable(() => this.root.executions.selectedExecutionId)
       .pipe(
+        filter(executionId => !executionId)
+      )
+      .subscribe(() => this.selectPart(""))
+
+    toObservable(() => this.root.executions.selectedExecutionId)
+      .pipe(
         filter(executionId => !!executionId),
         tap(_ => this.isLoading = true),
         switchMap(executionId => ExecutionPartsService.getExecutionParts(executionId)),
