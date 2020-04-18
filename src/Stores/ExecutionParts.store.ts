@@ -26,12 +26,16 @@ export class ExecutionPartsStore extends ChildStore {
       .pipe(
         filter(executionId => !executionId)
       )
-      .subscribe(() => this.selectPart(""))
+      .subscribe(() => {
+        this.executionParts = null;
+        this.selectPart("");
+      })
 
     toObservable(() => this.root.executions.selectedExecutionId)
       .pipe(
         filter(executionId => !!executionId),
         tap(_ => this.isLoading = true),
+        tap(_ => this.selectPart("")),
         switchMap(executionId => ExecutionPartsService.getExecutionParts(executionId)),
         map(executionPartsDto => this.convertToModel(executionPartsDto))
       )
