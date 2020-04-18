@@ -14,6 +14,7 @@ const singlePartStyles = (indentIndex: number) => createStyles<ExecutionPartClas
     alignItems: "center",
     padding: `10px ${15 + (indicatorSize + titleMargin) * indentIndex}px`
   },
+  selected: {},
   statusIndicator: {
     width: `${indicatorSize}px`,
     height: `${indicatorSize}px`
@@ -73,13 +74,18 @@ const ExecutionPart = withStyles(singlePartStyles(0))(StylessExecutionPart);
 export const ExecutionPartsList = () => {
   const executionPartsStore = useStore("executionParts");
 
-  return useObserver(() =>
-    <div style={{ marginTop: "10px" }}>
-      {
-        executionPartsStore.isLoading
+  return useObserver(() => {
+    if (!executionPartsStore.executionParts && !executionPartsStore.isLoading) {
+      return null;
+    }
+
+    return (
+      <div style={{ marginTop: "10px" }}>
+        {executionPartsStore.isLoading
           ? <ExecutionPartsItemLoader loaderChildren={loaderStructure} />
-          : <ExecutionPart executionParts={executionPartsStore.executionParts!} stylesFactory={singlePartStyles} />
-      }
-    </div>
+          : <ExecutionPart executionParts={executionPartsStore.executionParts!} stylesFactory={singlePartStyles} />}
+      </div>
+    )
+  }
   )
 }

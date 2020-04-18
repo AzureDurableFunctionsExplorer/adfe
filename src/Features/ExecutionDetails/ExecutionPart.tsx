@@ -3,6 +3,8 @@ import { ExecutionPartsModel } from '../../Models/ExecutionPart.model'
 import { WithStyles, Typography, withStyles, createStyles, StyleRules } from '@material-ui/core'
 import { ExecutionStatusIcon } from '../../Core/Components/ExecutionStatusIcon';
 import { useIsPointerOver } from '../../Core/Hooks/useIsPointerOver';
+import { useStore } from '../../Stores/Core';
+import { useObserver } from 'mobx-react-lite';
 
 export interface ExecutionPartProps {
   executionParts: ExecutionPartsModel,
@@ -10,30 +12,32 @@ export interface ExecutionPartProps {
   stylesFactory: (indentIndex: number) => StyleRules<ExecutionPartClasses, ExecutionPartProps>;
 }
 
-export type ExecutionPartClasses = "root" | "statusIndicator" | "title";
+export type ExecutionPartClasses = "root" | "selected" | "statusIndicator" | "title";
 
 const ExecutionPartInner = ({ executionParts, indentIndex, stylesFactory, classes }: ExecutionPartProps & WithStyles<ExecutionPartClasses>) => {
   const [isPointerOver, ref] = useIsPointerOver(null);
+  const executionPartsStore = useStore("executionParts");
 
-  if (!executionParts) {
-    return null;
-  }
   const childIndentIndex = (indentIndex || 0) + 1;
   const ChildExecutionPart = withStyles(stylesFactory(childIndentIndex))(ExecutionPart);
 
-  return (
-    <>
-      <div className={classes.root} ref={ref}>
-        <ExecutionStatusIcon active={!executionParts.endTime} selected={false} highlighted={isPointerOver} />
-        <Typography variant="body1" className={classes.title}>{executionParts.title}</Typography>
-      </div>
+  return useObserver(() => {
 
-      {
-        executionParts?.children?.map(child => {
-          return <ChildExecutionPart key={child.id} executionParts={child} indentIndex={childIndentIndex} stylesFactory={stylesFactory} />
-        })
-      }
-    </>
+    const isSelected = executionPartsStore.selectedPartId === executionParts.id;
+
+    return (
+      <>
+        <div className={`${classes.root} ${isSelected ? classes.selected : ""}`} ref={ref} onClick={(e) => executionPartsStore.selectPart(executionParts.id)}>
+          <ExecutionStatusIcon active={!executionParts.endTime} selected={isSelected} highlighted={isPointerOver} />
+          <Typography variant="body1" className={classes.title}>{executionParts.title}</Typography>
+        </div>
+
+        {
+          executionParts?.children?.map(child => (<ChildExecutionPart key={child.id} executionParts={child} indentIndex={childIndentIndex} stylesFactory={stylesFactory} />))
+        }
+      </>
+    )
+  }
   )
 }
 
@@ -46,8 +50,15 @@ export const ExecutionPart = withStyles(
         "& $title": {
           color: theme.palette.secondary.main
         }
+      },
+      "&$selected": {
+        backgroundColor: theme.palette.primary.dark,
+        "& $title": {
+          color: theme.palette.secondary.dark
+        }
       }
     },
+    selected: {},
     statusIndicator: {},
     title: {}
   })
