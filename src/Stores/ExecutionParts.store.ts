@@ -64,7 +64,7 @@ export class ExecutionPartsStore extends ChildStore {
       return executionPart;
     }
 
-    for (const child of executionPart.children) {
+    for (const child of executionPart.children || []) {
       const foundInChildren = this.findExecutionPart(child, idToFind);
       if (foundInChildren) {
         return foundInChildren;

@@ -25,6 +25,11 @@ export const typography: (palette: Palette) => TypographyOptions = palette => {
       fontSize: "24px",
       lineHeight: 1
     },
+    h6: {
+      color: palette.primary.dark,
+      fontSize: "16px",
+      lineHeight: 1
+    },
     subtitle1: {
       color: palette.secondary.dark,
       fontWeight: "bold"
