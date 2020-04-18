@@ -21,7 +21,9 @@ export const typography: (palette: Palette) => TypographyOptions = palette => {
     },
     h5: {
       color: palette.primary.dark,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      fontSize: "24px",
+      lineHeight: 1
     },
     subtitle1: {
       color: palette.secondary.dark,
@@ -29,7 +31,8 @@ export const typography: (palette: Palette) => TypographyOptions = palette => {
     },
     subtitle2: {
       color: palette.primary.dark,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      lineHeight: 1
     },
     caption: {
       color: palette.secondary.main,

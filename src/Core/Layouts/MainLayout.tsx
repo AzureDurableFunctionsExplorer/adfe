@@ -87,7 +87,7 @@ export const MainLayout = withStyles(
       "executionPanel": {
         display: "grid",
         gridTemplateColumns: "40% auto",
-        gridTemplateRows: "6% auto",
+        gridTemplateRows: "min-content auto",
         gridTemplateAreas: `
           "title title"
           "execution-details execution-part-details"

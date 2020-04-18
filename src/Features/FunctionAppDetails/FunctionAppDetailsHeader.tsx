@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles, createStyles, WithStyles, Typography } from '@material-ui/core';
 import { ReactComponent as AzureFunctionIcon } from "../../assets/images/azure-functions-icon.svg";
-import { Closable } from '../../Core/Layouts/Closable';
+import { ClosableHeader } from '../../Core/Layouts/ClosableHeader';
 import { useObserver } from 'mobx-react-lite';
 import { useStore } from '../../Stores/Core';
 
@@ -16,12 +16,12 @@ const FunctionAppDetailsHeaderInner = ({ functionName, classes }: FunctionAppDet
 
   return useObserver(() =>
     <div>
-      <Closable onClose={() => functionAppsStore.selectFunctionApp("")}>
+      <ClosableHeader onClose={() => functionAppsStore.selectFunctionApp("")}>
         <div className={classes.container}>
-          <AzureFunctionIcon className={classes.icon} />
           <Typography variant="h5" className={classes.title}>{functionName}</Typography>
+          <AzureFunctionIcon className={classes.icon} />
         </div>
-      </Closable>
+      </ClosableHeader>
     </div>
   );
 }
@@ -30,17 +30,15 @@ export const FunctionAppDetailsHeader = withStyles(
   theme => createStyles({
     "container": {
       display: "flex",
-      alignItems: "center",
-      padding: "20px 5px 10px 20px",
-      borderBottom: `1px solid ${theme.palette.primary.main}`
+      alignItems: "flex-start"
     },
     "icon": {
-      minWidth: "50px",
-      minHeight: "50px",
+      minWidth: "24px",
+      minHeight: "24px",
       marginRight: "10px"
     },
     "title": {
-
+      flexGrow: 1
     }
   })
 )(FunctionAppDetailsHeaderInner);

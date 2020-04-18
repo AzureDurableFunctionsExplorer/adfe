@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
 import { Typography, withStyles, WithStyles, createStyles } from '@material-ui/core';
-import { Closable } from '../../Core/Layouts/Closable';
+import { ClosableHeader } from '../../Core/Layouts/ClosableHeader';
 
 type ExecutionDetailsTitleClasses = "root" | "title" | "time";
 
@@ -10,12 +10,12 @@ const ExecutionDetailsHeaderInner = ({ classes }: WithStyles<ExecutionDetailsTit
   const executionStore = useStore("executions");
 
   return useObserver(() => (
-    <Closable onClose={() => executionStore.selectExecution("")}>
+    <ClosableHeader onClose={() => executionStore.selectExecution("")}>
       <div className={classes.root}>
         <Typography variant="h5" className={classes.title}>{executionStore.selectedExecution?.functionName}</Typography>
         <Typography variant="subtitle2" className={classes.time}>{executionStore.selectedExecution?.startTime}</Typography>
       </div>
-    </Closable>
+    </ClosableHeader>
   ));
 }
 
@@ -23,10 +23,7 @@ export const ExecutionDetailsHeader = withStyles(theme =>
   createStyles({
     "root": {
       display: "flex",
-      alignItems: "flex-end",
-      height: "calc(100% - 20px)",
-      padding: "10px 20px",
-      borderBottom: `1px solid ${theme.palette.primary.main}`
+      alignItems: "flex-end"
     },
     "title": {},
     "time": {

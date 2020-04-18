@@ -1,13 +1,25 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, withStyles, createStyles, WithStyles } from '@material-ui/core'
 import { useStore } from '../../Stores/Core'
+import { ClosableHeader } from '../../Core/Layouts/ClosableHeader';
 
-const ExecutionPartDetailsInner = () => {
+type ExecutionPartDetailsClasses = "root" | "title";
+
+const ExecutionPartDetailsInner = ({ classes }: WithStyles<ExecutionPartDetailsClasses>) => {
   const executionPartsStore = useStore("executionParts");
 
   return (
-    <Typography variant="h5">{executionPartsStore.selectedPart?.title}</Typography>
+    <div className={classes.root}>
+      <ClosableHeader onClose={() => executionPartsStore.selectPart("")}>
+        <Typography className={classes.title} variant="h5">{executionPartsStore.selectedPart?.title}</Typography>
+      </ClosableHeader>
+    </div>
   )
 }
 
-export const ExecutionPartDetails = ExecutionPartDetailsInner;
+export const ExecutionPartDetails = withStyles(
+  theme => createStyles({
+    root: {},
+    title: {}
+  })
+)(ExecutionPartDetailsInner);

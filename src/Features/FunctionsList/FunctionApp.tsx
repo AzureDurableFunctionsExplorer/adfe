@@ -47,7 +47,7 @@ export const FunctionApp = withStyles(theme =>
       height: "calc(100% - 10px)"
     },
     "title": {
-      margin: "5px"
+      margin: "10px"
     }
   })
 )(FunctionAppInner);
