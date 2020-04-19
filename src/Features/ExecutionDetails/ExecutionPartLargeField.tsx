@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withStyles, createStyles, WithStyles, Zoom, Typography, Paper, Snackbar, Slide } from '@material-ui/core';
+import { withStyles, createStyles, WithStyles, Zoom, Typography, Paper } from '@material-ui/core';
 import { Tooltip } from '../../Core/Components/Tooltip';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import DoneIcon from '@material-ui/icons/Done';
@@ -15,7 +15,6 @@ type ExecutionPartLargeFieldClasses = "titleContainer" | "titleText" | "copyIcon
 
 const ExecutionPartLargeFieldInner = ({ title, value, classes }: ExecutionPartLargeFieldProps & WithStyles<ExecutionPartLargeFieldClasses>) => {
   const [isCopied, setIsCopied] = useState(false);
-  const transitionUp = <Slide direction="up" />
 
   const copyValue = () => {
     navigator.clipboard.writeText(value);
