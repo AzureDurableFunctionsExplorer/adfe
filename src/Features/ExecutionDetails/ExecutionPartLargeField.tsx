@@ -1,7 +1,10 @@
-import React from 'react'
-import { withStyles, createStyles, WithStyles, Zoom, Typography, Paper } from '@material-ui/core';
+import React, { useState } from 'react'
+import { withStyles, createStyles, WithStyles, Zoom, Typography, Paper, Snackbar, Slide } from '@material-ui/core';
 import { Tooltip } from '../../Core/Components/Tooltip';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import DoneIcon from '@material-ui/icons/Done';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 export interface ExecutionPartLargeFieldProps {
   title: string,
@@ -11,13 +14,27 @@ export interface ExecutionPartLargeFieldProps {
 type ExecutionPartLargeFieldClasses = "titleContainer" | "titleText" | "copyIcon" | "fieldContainer";
 
 const ExecutionPartLargeFieldInner = ({ title, value, classes }: ExecutionPartLargeFieldProps & WithStyles<ExecutionPartLargeFieldClasses>) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const transitionUp = <Slide direction="up" />
+
+  const copyValue = () => {
+    navigator.clipboard.writeText(value);
+    setIsCopied(true);
+
+    interval(2000).pipe(take(1)).subscribe(_ => setIsCopied(false));
+  }
+
   return (
     <>
       <div className={classes.titleContainer}>
         <Typography variant="h6" className={classes.titleText}>{title}</Typography>
-        <Tooltip title="Copy" arrow placement="left" TransitionComponent={Zoom}>
+        <Tooltip title={`${isCopied ? "Copied!" : "Copy"}`} arrow placement="left" TransitionComponent={Zoom}>
           <div>
-            <FilterNoneIcon className={classes.copyIcon}></FilterNoneIcon>
+            {
+              isCopied
+                ? <DoneIcon className={classes.copyIcon}></DoneIcon>
+                : <FilterNoneIcon className={classes.copyIcon} onClick={(e) => copyValue()}></FilterNoneIcon>
+            }
           </div>
         </Tooltip>
       </div>

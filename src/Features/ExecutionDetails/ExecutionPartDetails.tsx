@@ -1,11 +1,8 @@
 import React from 'react'
-import { Typography, withStyles, createStyles, WithStyles, Paper } from '@material-ui/core'
+import { Typography, withStyles, createStyles, WithStyles } from '@material-ui/core'
 import { useStore } from '../../Stores/Core'
 import { ClosableHeader } from '../../Core/Layouts/ClosableHeader';
 import { useObserver } from 'mobx-react-lite';
-import FilterNoneIcon from '@material-ui/icons/FilterNone';
-import { Tooltip } from '../../Core/Components/Tooltip';
-import Zoom from '@material-ui/core/Zoom';
 import { ExecutionPartSmallField } from './ExecutionPartSmallField';
 import { ExecutionPartLargeField } from './ExecutionPartLargeField';
 
