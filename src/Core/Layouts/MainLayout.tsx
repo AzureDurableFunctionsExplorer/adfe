@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { TopBar } from "../Components/TopBar";
+import { TopBar } from "../../Features/TopBar/TopBar";
 import { withStyles, createStyles, WithStyles, Paper, Slide } from "@material-ui/core";
 import { FunctionsList } from "../../Features/FunctionsList/FunctionsList";
 import { FunctionAppDetails } from "../../Features/FunctionAppDetails/FunctionAppDetails";
@@ -8,6 +8,8 @@ import { useObserver } from "mobx-react-lite";
 import { ExecutionDetailsHeader } from "../../Features/ExecutionDetails/ExecutionDetailsHeader";
 import { ExecutionPartsList } from "../../Features/ExecutionDetails/ExecutionPartsList";
 import { ExecutionPartDetails } from "../../Features/ExecutionDetails/ExecutionPartDetails";
+import AzureAD from "react-aad-msal";
+import { authProvider } from "../Auth/AuthProvider";
 
 type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails" | "executionPart";
 
@@ -28,37 +30,39 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
   return useObserver(() => (
     <div className={classes.root}>
-      <TopBar ref={topBarRef}></TopBar>
-      <div className={classes.body} style={{
-        height: `calc(100vh - ${topBarHeight}px)`,
-        marginTop: `${topBarHeight}px`
-      }}>
-        <Paper elevation={5} square className={classes.functionsList} >
-          <FunctionsList></FunctionsList>
-        </Paper>
-        <Slide in={functionAppsStore.selectedFunctionAppId !== ""} direction="right">
-          <Paper elevation={5} square className={classes.functionPanel}>
-            <FunctionAppDetails></FunctionAppDetails>
+      <TopBar ref={topBarRef} />
+      <AzureAD provider={authProvider}>
+        <div className={classes.body} style={{
+          height: `calc(100vh - ${topBarHeight}px)`,
+          marginTop: `${topBarHeight}px`
+        }}>
+          <Paper elevation={5} square className={classes.functionsList} >
+            <FunctionsList></FunctionsList>
           </Paper>
-        </Slide>
-        <div className={classes.executionPanel}>
-          <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="down">
-            <div className={classes.executionTitle}>
-              <ExecutionDetailsHeader></ExecutionDetailsHeader>
-            </div>
-          </Slide>
-          <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="right">
-            <Paper elevation={5} square className={classes.executionDetails}>
-              <ExecutionPartsList></ExecutionPartsList>
+          <Slide in={functionAppsStore.selectedFunctionAppId !== ""} direction="right">
+            <Paper elevation={5} square className={classes.functionPanel}>
+              <FunctionAppDetails></FunctionAppDetails>
             </Paper>
           </Slide>
-          <Slide in={executionPartsStore.selectedPartId !== ""} direction="right">
-            <Paper elevation={5} square className={classes.executionPart}>
-              <ExecutionPartDetails />
-            </Paper>
-          </Slide>
+          <div className={classes.executionPanel}>
+            <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="down">
+              <div className={classes.executionTitle}>
+                <ExecutionDetailsHeader></ExecutionDetailsHeader>
+              </div>
+            </Slide>
+            <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="right">
+              <Paper elevation={5} square className={classes.executionDetails}>
+                <ExecutionPartsList></ExecutionPartsList>
+              </Paper>
+            </Slide>
+            <Slide in={executionPartsStore.selectedPartId !== ""} direction="right">
+              <Paper elevation={5} square className={classes.executionPart}>
+                <ExecutionPartDetails />
+              </Paper>
+            </Slide>
+          </div>
         </div>
-      </div>
+      </AzureAD>
     </div >
   ))
 }
