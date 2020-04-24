@@ -3,9 +3,9 @@ import { delay } from 'rxjs/operators'
 import { FunctionAppDto } from '../Dtos';
 import MockApps from '../assets/mocks/MockApps.json';
 
-export class FunctionsService {
+class FunctionsServiceClass {
 
-  public static getAllFunctions(): Promise<FunctionAppDto[]> {
+  public getAllFunctions(): Promise<FunctionAppDto[]> {
     const functionApps: FunctionAppDto[] = MockApps.map(mockApp => mockApp as FunctionAppDto);
 
     return from([functionApps])
@@ -15,3 +15,5 @@ export class FunctionsService {
       .toPromise();
   }
 }
+
+export const FunctionsService = new FunctionsServiceClass();

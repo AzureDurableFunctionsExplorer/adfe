@@ -3,8 +3,8 @@ import { delay } from "rxjs/operators";
 import MockOrchestrators from '../assets/mocks/MockOrchestrators.json';
 import { FunctionExecutionDto } from "../Dtos/FunctionExecution.dto";
 
-export class FunctionAppExecutionService {
-  public static getFunctionAppExecutions(functionAppId: string): Promise<FunctionExecutionDto[]> {
+class FunctionAppExecutionServiceClass {
+  public getFunctionAppExecutions(functionAppId: string): Promise<FunctionExecutionDto[]> {
     const executions = MockOrchestrators.map(({ endTime, ...rest }) => ({
       ...rest,
       endTime: endTime ? Date.parse(endTime) : undefined
@@ -17,3 +17,5 @@ export class FunctionAppExecutionService {
       .toPromise();
   }
 }
+
+export const FunctionAppExecutionService = new FunctionAppExecutionServiceClass();
