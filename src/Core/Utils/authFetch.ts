@@ -4,7 +4,7 @@ export const authFetch = async (input: RequestInfo, init?: RequestInit): Promise
   const tokenObj = await authProvider.getAccessToken();
 
   const headers: HeadersInit = new Headers();
-  headers.set("Authorization", tokenObj.accessToken);
+  headers.set("Authorization", `Bearer ${tokenObj.accessToken}`);
 
   if (init) {
     init.headers = headers;

@@ -38,7 +38,7 @@ class UserServiceClass {
   }
 
   logout(): void {
-    authProvider.loginRedirect();
+    authProvider.logout();
   }
 }
 

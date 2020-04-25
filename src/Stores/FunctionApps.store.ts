@@ -2,6 +2,8 @@ import { ChildStore } from "./Core/ChildStore";
 import { FunctionAppModel } from "../Models";
 import { FunctionsService } from "../Services/Functions.service";
 import { observable, action, computed } from "mobx";
+import { UserService } from "../Services/User.service";
+import { filter, switchMap, take } from "rxjs/operators";
 
 export class FunctionAppsStore extends ChildStore {
 
@@ -16,8 +18,16 @@ export class FunctionAppsStore extends ChildStore {
 
   async initialize() {
     this.isLoading = true;
-    this.functionApps = await FunctionsService.getAllFunctions();
-    this.isLoading = false;
+    UserService.isLoggedIn
+      .pipe(
+        filter(isLoggedIn => isLoggedIn),
+        switchMap(_ => FunctionsService.getAllFunctions()),
+        take(1)
+      )
+      .subscribe(functionApps => {
+        this.functionApps = functionApps;
+        this.isLoading = false;
+      });
   }
 
   @action
