@@ -34,7 +34,7 @@ export const SectionHeader = withStyles(
       borderBottom: "1px solid " + theme.palette.primary.main,
     },
     closeIcon: {
-      color: theme.palette.primary.main,
+      color: theme.palette.primary.dark,
       cursor: "pointer",
       marginRight: "20px"
     },

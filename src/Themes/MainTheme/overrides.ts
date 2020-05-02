@@ -17,9 +17,20 @@ export function createOverrides(palette: PaletteOptions): Overrides {
         }
       }
     }
+
+    muiInputOverride.input = {
+      color: palette.primary.dark
+    }
   }
 
   return {
-    MuiInput: muiInputOverride
+    MuiInput: muiInputOverride,
+    MuiSelect: {
+      select: {
+        "&:focus": {
+          backgroundColor: "auto" // Removes the light grey color after selection
+        }
+      }
+    }
   }
 }
