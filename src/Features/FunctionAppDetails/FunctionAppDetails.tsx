@@ -4,6 +4,7 @@ import { FunctionAppsStore } from '../../Stores/FunctionApps.store';
 import { useObserver } from 'mobx-react-lite';
 import { FunctionAppDetailsHeader } from './FunctionAppDetailsHeader';
 import { FunctionAppExecutionsList } from './FunctionAppExecutionsList';
+import { SectionContainer } from '../../Core/Layouts/SectionContainer';
 
 export const FunctionAppDetails = () => {
   const functionAppsStore: FunctionAppsStore = useStore("functionApps");
@@ -11,9 +12,9 @@ export const FunctionAppDetails = () => {
   return useObserver(() => (
     <div>
       <FunctionAppDetailsHeader functionName={functionAppsStore.selectedFunctionApp?.name} />
-      <div style={{ marginTop: "25px" }}>
+      <SectionContainer>
         <FunctionAppExecutionsList />
-      </div>
+      </SectionContainer>
     </div>
   ))
 }

@@ -1,6 +1,5 @@
 import { Overrides } from "@material-ui/core/styles/overrides";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
-import { SimplePaletteColorOptions } from "@material-ui/core";
 
 export function createOverrides(palette: PaletteOptions): Overrides {
 

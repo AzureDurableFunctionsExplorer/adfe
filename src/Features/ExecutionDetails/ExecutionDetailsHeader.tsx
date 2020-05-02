@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from '../../Stores/Core';
 import { useObserver } from 'mobx-react-lite';
 import { Typography, withStyles, WithStyles, createStyles } from '@material-ui/core';
-import { ClosableHeader } from '../../Core/Layouts/ClosableHeader';
+import { SectionHeader } from '../../Core/Layouts/SectionHeader';
 
 type ExecutionDetailsTitleClasses = "root" | "title" | "time";
 
@@ -10,12 +10,12 @@ const ExecutionDetailsHeaderInner = ({ classes }: WithStyles<ExecutionDetailsTit
   const executionStore = useStore("executions");
 
   return useObserver(() => (
-    <ClosableHeader onClose={() => executionStore.selectExecution("")}>
+    <SectionHeader onClose={() => executionStore.selectExecution("")}>
       <div className={classes.root}>
         <Typography variant="h5" className={classes.title}>{executionStore.selectedExecution?.functionName}</Typography>
         <Typography variant="subtitle2" className={classes.time}>{executionStore.selectedExecution?.startTime}</Typography>
       </div>
-    </ClosableHeader>
+    </SectionHeader>
   ));
 }
 

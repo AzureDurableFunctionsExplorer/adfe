@@ -10,6 +10,8 @@ import { ExecutionPartsList } from "../../Features/ExecutionDetails/ExecutionPar
 import { ExecutionPartDetails } from "../../Features/ExecutionDetails/ExecutionPartDetails";
 import AzureAD from "react-aad-msal";
 import { authProvider } from "../Auth/AuthProvider";
+import { Consts } from "../Consts/consts";
+import { NewConnection } from "../../Features/FunctionsList/NewConnection";
 
 type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails" | "executionPart";
 
@@ -41,7 +43,11 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
           </Paper>
           <Slide in={functionAppsStore.selectedFunctionAppId !== ""} direction="right">
             <Paper elevation={5} square className={classes.functionPanel}>
-              <FunctionAppDetails></FunctionAppDetails>
+              {
+                functionAppsStore.selectedFunctionAppId !== Consts.newFunctionConnectionConst
+                  ? <FunctionAppDetails></FunctionAppDetails>
+                  : <NewConnection></NewConnection>
+              }
             </Paper>
           </Slide>
           <div className={classes.executionPanel}>
@@ -80,7 +86,6 @@ export const MainLayout = withStyles(
       "functionsList": {
         overflowY: "auto",
         width: "20%",
-        paddingTop: "10px",
         zIndex: 59
       },
       "functionPanel": {

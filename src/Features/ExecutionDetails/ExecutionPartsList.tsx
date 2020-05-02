@@ -4,6 +4,7 @@ import { useStore } from '../../Stores/Core'
 import { useObserver } from 'mobx-react-lite'
 import { ExecutionPartStatus as StylessExecutionPart, ExecutionPartClasses } from './ExecutionPartStatus'
 import { withStyles, createStyles, WithStyles } from '@material-ui/core'
+import { SectionContainer } from '../../Core/Layouts/SectionContainer'
 
 const indicatorSize = 18;
 const titleMargin = 10;
@@ -81,11 +82,11 @@ export const ExecutionPartsList = () => {
     }
 
     return (
-      <div style={{ marginTop: "10px" }}>
+      <SectionContainer>
         {executionPartsStore.isLoading
           ? <ExecutionPartsItemLoader loaderChildren={loaderStructure} />
           : <ExecutionPart executionParts={executionPartsStore.executionParts!} stylesFactory={singlePartStyles} />}
-      </div>
+      </SectionContainer>
     )
   }
   )

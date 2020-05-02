@@ -3,16 +3,20 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { WithStyles, withStyles, createStyles } from '@material-ui/core';
 
 export interface ClosableProps {
-  onClose: () => void;
+  onClose?: () => void;
   borderless?: boolean;
 }
 
-type ClosableHeaderClasses = "root" | "border" | "closeIcon" | "childrenContainer";
+type SectionHeaderClasses = "root" | "border" | "closeIcon" | "childrenContainer";
 
-const ClosableHeaderInner = ({ classes, children, onClose, borderless }: PropsWithChildren<ClosableProps> & WithStyles<ClosableHeaderClasses>) => {
+const SectionHeaderInner = ({ classes, children, onClose, borderless }: PropsWithChildren<ClosableProps> & WithStyles<SectionHeaderClasses>) => {
   return (
     <div className={`${classes.root} ${borderless ? "" : classes.border}`}>
-      <ArrowBackIcon className={classes.closeIcon} onClick={() => onClose()}></ArrowBackIcon>
+      {
+        onClose
+          ? <ArrowBackIcon className={classes.closeIcon} onClick={() => onClose()}></ArrowBackIcon>
+          : null
+      }
       <div className={classes.childrenContainer}>
         {children}
       </div>
@@ -20,7 +24,7 @@ const ClosableHeaderInner = ({ classes, children, onClose, borderless }: PropsWi
   );
 }
 
-export const ClosableHeader = withStyles(
+export const SectionHeader = withStyles(
   theme => createStyles({
     root: {
       display: "flex",
@@ -38,4 +42,4 @@ export const ClosableHeader = withStyles(
       flexGrow: 1
     }
   })
-)(ClosableHeaderInner);
+)(SectionHeaderInner);
