@@ -5,15 +5,13 @@ import { FunctionsList } from "../../Features/FunctionsList/FunctionsList";
 import { FunctionAppDetails } from "../../Features/FunctionAppDetails/FunctionAppDetails";
 import { useStore } from "../../Stores/Core";
 import { useObserver } from "mobx-react-lite";
-import { ExecutionDetailsHeader } from "../../Features/ExecutionDetails/ExecutionDetailsHeader";
-import { ExecutionPartsList } from "../../Features/ExecutionDetails/ExecutionPartsList";
-import { ExecutionPartDetails } from "../../Features/ExecutionDetails/ExecutionPartDetails";
 import AzureAD from "react-aad-msal";
 import { authProvider } from "../Auth/AuthProvider";
 import { Consts } from "../Consts/consts";
 import { NewConnection } from "../../Features/FunctionsList/NewConnection";
+import { Executions } from "../../Features/ExecutionDetails/Executions";
 
-type MainLayoutClassKeys = "root" | "body" | "functionsList" | "functionPanel" | "executionPanel" | "executionTitle" | "executionDetails" | "executionPart";
+type MainLayoutClassKeys = "root" | "body" | "firstLevelContainer" | "secondLevelContainer" | "thirdLevelContainer";
 
 const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 
@@ -27,8 +25,6 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
   }, []);
 
   const functionAppsStore = useStore("functionApps");
-  const functionExecutionsStore = useStore("executions");
-  const executionPartsStore = useStore("executionParts");
 
   return useObserver(() => (
     <div className={classes.root}>
@@ -38,11 +34,11 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
           height: `calc(100vh - ${topBarHeight}px)`,
           marginTop: `${topBarHeight}px`
         }}>
-          <Paper elevation={5} square className={classes.functionsList} >
+          <Paper elevation={5} square className={classes.firstLevelContainer} >
             <FunctionsList></FunctionsList>
           </Paper>
           <Slide in={functionAppsStore.selectedFunctionAppId !== ""} direction="right">
-            <Paper elevation={5} square className={classes.functionPanel}>
+            <Paper elevation={5} square className={classes.secondLevelContainer}>
               {
                 functionAppsStore.selectedFunctionAppId !== Consts.newFunctionConnectionConst
                   ? <FunctionAppDetails></FunctionAppDetails>
@@ -50,22 +46,8 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
               }
             </Paper>
           </Slide>
-          <div className={classes.executionPanel}>
-            <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="down">
-              <div className={classes.executionTitle}>
-                <ExecutionDetailsHeader></ExecutionDetailsHeader>
-              </div>
-            </Slide>
-            <Slide in={functionExecutionsStore.selectedExecutionId !== ""} direction="right">
-              <Paper elevation={5} square className={classes.executionDetails}>
-                <ExecutionPartsList></ExecutionPartsList>
-              </Paper>
-            </Slide>
-            <Slide in={executionPartsStore.selectedPartId !== ""} direction="right">
-              <Paper elevation={5} square className={classes.executionPart}>
-                <ExecutionPartDetails />
-              </Paper>
-            </Slide>
+          <div className={classes.thirdLevelContainer}>
+            <Executions />
           </div>
         </div>
       </AzureAD>
@@ -76,45 +58,26 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
 export const MainLayout = withStyles(
   () =>
     createStyles({
-      "root": {
+      root: {
         display: "flex"
       },
-      "body": {
+      body: {
         width: "100%",
         display: "flex"
       },
-      "functionsList": {
+      firstLevelContainer: {
         overflowY: "auto",
         width: "20%",
         zIndex: 59
       },
-      "functionPanel": {
+      secondLevelContainer: {
         overflowY: "auto",
         width: "20%",
         zIndex: 49
       },
-      "executionPanel": {
-        display: "grid",
-        gridTemplateColumns: "40% auto",
-        gridTemplateRows: "min-content auto",
-        gridTemplateAreas: `
-          "title title"
-          "execution-details execution-part-details"
-          `,
+      thirdLevelContainer: {
         flexGrow: 1,
         zIndex: 39
-      },
-      "executionTitle": {
-        gridArea: "title",
-        zIndex: 38
-      },
-      "executionDetails": {
-        gridArea: "execution-details",
-        zIndex: 37
-      },
-      "executionPart": {
-        gridArea: "execution-part-details",
-        zIndex: 36
       }
     })
 )(MainLayoutInner);
