@@ -3,7 +3,8 @@ import { FunctionAppModel } from "../Models";
 import { FunctionsService } from "../Services/Functions.service";
 import { observable, action, computed } from "mobx";
 import { UserService } from "../Services/User.service";
-import { filter, switchMap, take } from "rxjs/operators";
+import { filter, switchMap, take, distinctUntilChanged } from "rxjs/operators";
+import { toObservable } from "../Core/Utils/MobxUtils";
 
 export class FunctionAppsStore extends ChildStore {
 

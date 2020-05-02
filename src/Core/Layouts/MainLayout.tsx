@@ -8,8 +8,9 @@ import { useObserver } from "mobx-react-lite";
 import AzureAD from "react-aad-msal";
 import { authProvider } from "../Auth/AuthProvider";
 import { Consts } from "../Consts/consts";
-import { NewConnection } from "../../Features/FunctionsList/NewConnection";
+import { NewConnection } from "../../Features/NewConnection/NewConnection";
 import { Executions } from "../../Features/ExecutionDetails/Executions";
+import { NewConnectionHelp } from "../../Features/NewConnection/NewConnectionHelp";
 
 type MainLayoutClassKeys = "root" | "body" | "firstLevelContainer" | "secondLevelContainer" | "thirdLevelContainer";
 
@@ -25,6 +26,7 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
   }, []);
 
   const functionAppsStore = useStore("functionApps");
+  const functionExecutionsStore = useStore("executions");
 
   return useObserver(() => (
     <div className={classes.root}>
@@ -47,7 +49,11 @@ const MainLayoutInner = ({ classes }: WithStyles<MainLayoutClassKeys>) => {
             </Paper>
           </Slide>
           <div className={classes.thirdLevelContainer}>
-            <Executions />
+            {
+              functionExecutionsStore.selectedExecutionId !== ""
+                ? <Executions />
+                : <NewConnectionHelp />
+            }
           </div>
         </div>
       </AzureAD>

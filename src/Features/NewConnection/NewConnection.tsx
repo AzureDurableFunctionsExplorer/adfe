@@ -4,9 +4,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { SectionContainer } from '../../Core/Layouts/SectionContainer';
 import { SectionHeader } from '../../Core/Layouts/SectionHeader';
 import { useStore } from '../../Stores/Core';
-import HelpIcon from '@material-ui/icons/Help';
 
-type NewConnectionClassKeys = 'content' | 'headerContainer' | 'headerIcon' | 'title' | 'message' | 'textInputField' | 'selectInputField' | 'addButton'
+type NewConnectionClassKeys = 'content' | 'message' | 'textInputField' | 'selectInputField' | 'addButton'
 
 const NewConnectionInner = ({ classes }: WithStyles<NewConnectionClassKeys>) => {
   const [displayName, setDisplayName] = useState("");
@@ -18,16 +17,10 @@ const NewConnectionInner = ({ classes }: WithStyles<NewConnectionClassKeys>) => 
   return (
     <>
       <SectionHeader onClose={() => functionsStore.selectFunctionApp("")}>
-        <div className={classes.headerContainer}>
-          <Typography className={classes.title} variant="h5">New Storage Connection</Typography>
-          <HelpIcon className={classes.headerIcon}></HelpIcon>
-        </div>
+        <Typography variant="h5">New Storage Connection</Typography>
       </SectionHeader>
       <SectionContainer>
         <div className={classes.content}>
-          <Typography variant="h6" className={classes.message}>
-            CORS is required for the tool to access the storage account. Click the ? icon for more info.
-          </Typography>
 
           <TextField className={classes.textInputField} label="SAS Connection String" onChange={(e) => setSasConnectionString(e.target.value)} />
           <TextField className={classes.textInputField} label="Display Name" onChange={(e) => setDisplayName(e.target.value)} />
@@ -55,16 +48,6 @@ export const NewConnection = withStyles(
       display: "flex",
       flexDirection: "column"
     },
-    headerContainer: {
-      display: "flex",
-    },
-    headerIcon: {
-      color: theme.palette.primary.dark,
-      cursor: "pointer"
-    },
-    title: {
-      flexGrow: 1
-    },
     message: {
       padding: theme.spacing(0.625),
       fontWeight: "bold",
@@ -72,7 +55,7 @@ export const NewConnection = withStyles(
       textAlign: "justify"
     },
     textInputField: {
-      marginTop: theme.spacing(2.5)
+      marginBottom: theme.spacing(2.5)
     },
     selectInputField: {
       marginTop: theme.spacing(5)
