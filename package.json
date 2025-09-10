@@ -21,7 +21,7 @@
     "react": "^16.13.1",
     "react-aad-msal": "^2.3.5",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "rxjs": "^6.5.5",
     "typeface-roboto": "0.0.75",
     "typescript": "^3.7.5"
